@@ -1,5 +1,5 @@
 
-package org.csource.fastdfs.test;
+package csource.test;
 
 import org.csource.common.NameValuePair;
 import org.csource.fastdfs.*;

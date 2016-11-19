@@ -6,7 +6,7 @@
 * Please visit the FastDFS Home Page http://www.csource.org/ for more detail.
 */
 
-package org.csource.fastdfs.test;
+package csource.test;
 
 import org.csource.fastdfs.UploadCallback;
 
