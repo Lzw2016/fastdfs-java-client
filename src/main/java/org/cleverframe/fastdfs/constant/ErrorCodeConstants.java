@@ -15,5 +15,4 @@ public final class ErrorCodeConstants {
     public static final byte ERR_NO_ENOSPC = 28;
     public static final byte ERR_NO_CONNREFUSED = 61;
     public static final byte ERR_NO_EALREADY = 114;
-
 }
