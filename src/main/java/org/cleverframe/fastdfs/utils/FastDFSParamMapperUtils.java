@@ -76,7 +76,9 @@ public class FastDFSParamMapperUtils {
         T obj = genericType.newInstance();
         for (FieldMateData field : mappingFields) {
             // 设置属性值
-            logger.debug("设置值是 " + field + field.getValue(content, charset));
+            if (logger.isTraceEnabled()) {
+                logger.trace("设置值是 " + field + field.getValue(content, charset));
+            }
             BeanUtils.setProperty(obj, field.getFieldName(), field.getValue(content, charset));
         }
         return obj;

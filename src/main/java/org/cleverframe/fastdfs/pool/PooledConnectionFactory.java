@@ -65,6 +65,12 @@ public class PooledConnectionFactory extends BaseKeyedPooledObjectFactory<InetSo
         p.getObject().close();
     }
 
+    /**
+     *
+     * @param key
+     * @param p
+     * @return
+     */
     @Override
     public boolean validateObject(InetSocketAddress key, PooledObject<Connection> p) {
         return p.getObject().isValid();
