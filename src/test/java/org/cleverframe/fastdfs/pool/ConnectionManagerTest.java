@@ -1,5 +1,6 @@
 package org.cleverframe.fastdfs.pool;
 
+import org.apache.commons.pool2.impl.GenericKeyedObjectPoolConfig;
 import org.cleverframe.fastdfs.model.StorageNode;
 import org.cleverframe.fastdfs.protocol.tracker.GetStorageNodeCommand;
 import org.junit.Test;
@@ -28,16 +29,21 @@ public class ConnectionManagerTest {
         pooledConnectionFactory.setConnectTimeout(500);
         pooledConnectionFactory.setSoTimeout(500);
 
-        FastDfsConnectionPool connectionPool = new FastDfsConnectionPool(pooledConnectionFactory);
+        GenericKeyedObjectPoolConfig conf = new GenericKeyedObjectPoolConfig();
+        conf.setMaxTotal(20);
+        FastDfsConnectionPool connectionPool = new FastDfsConnectionPool(pooledConnectionFactory, conf);
 
         TrackerConnectionManager trackerConnectionManager = new TrackerConnectionManager(connectionPool);
         trackerConnectionManager.setTrackerList(trackerIpList);
         trackerConnectionManager.initTracker();
 
+        trackerConnectionManager.dumpPoolInfo();
+
         GetStorageNodeCommand command = new GetStorageNodeCommand();
         StorageNode storageNode = trackerConnectionManager.executeTrackerCmd(command);
         logger.info(storageNode.toString());
 
+        trackerConnectionManager.dumpPoolInfo();
 
         connectionPool.close();
     }

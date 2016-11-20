@@ -105,16 +105,14 @@ public class ConnectionManager {
 
     /**
      * 获取连接池信息
-     *
-     * @param address 请求地址
      */
-    public void dumpPoolInfo(InetSocketAddress address) {
+    public void dumpPoolInfo() {
         if (logger.isDebugEnabled()) {
             String tmp = "\r\n" +
                     "#=======================================================================================================================#\r\n" +
                     "# ------Dump Pool Info------\r\n" +
-                    "#\t 活动连接：" + pool.getNumActive(address) + "\r\n" +
-                    "#\t 空闲连接：" + pool.getNumIdle(address) + "\r\n" +
+                    "#\t 活动连接：" + pool.getNumActive() + "\r\n" +
+                    "#\t 空闲连接：" + pool.getNumIdle() + "\r\n" +
                     "#\t 连接获取总数统计：" + pool.getBorrowedCount() + "\r\n" +
                     "#\t 连接返回总数统计：" + pool.getReturnedCount() + "\r\n" +
                     "#\t 连接销毁总数统计：" + pool.getDestroyedCount() + "\r\n" +
