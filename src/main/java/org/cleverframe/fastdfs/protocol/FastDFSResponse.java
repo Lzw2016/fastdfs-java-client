@@ -1,6 +1,6 @@
 package org.cleverframe.fastdfs.protocol;
 
-import org.cleverframe.fastdfs.reflection.ReflectionsUtils;
+import org.cleverframe.fastdfs.utils.ReflectionsUtils;
 import org.cleverframe.fastdfs.utils.FastDFSParamMapperUtils;
 
 import java.io.IOException;

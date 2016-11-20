@@ -2,7 +2,7 @@ package org.cleverframe.fastdfs.protocol.tracker;
 
 import org.cleverframe.fastdfs.conn.Connection;
 import org.cleverframe.fastdfs.model.StorageState;
-import org.cleverframe.fastdfs.testbase.GetConnection;
+import org.cleverframe.fastdfs.testbase.GetTrackerConnection;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +21,7 @@ public class GetListStorageCommandTest {
 
     @Test
     public void test01() {
-        Connection connection = GetConnection.getDefaultConnection();
+        Connection connection = GetTrackerConnection.getDefaultConnection();
         try {
             GetStorageListCommand command = new GetStorageListCommand("group1");
             List<StorageState> storageStates = command.execute(connection);

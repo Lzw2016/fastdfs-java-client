@@ -2,7 +2,7 @@ package org.cleverframe.fastdfs.protocol.tracker;
 
 import org.cleverframe.fastdfs.conn.Connection;
 import org.cleverframe.fastdfs.model.GroupState;
-import org.cleverframe.fastdfs.testbase.GetConnection;
+import org.cleverframe.fastdfs.testbase.GetTrackerConnection;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +21,7 @@ public class GetGroupListCommandTest {
 
     @Test
     public void test01() {
-        Connection connection = GetConnection.getDefaultConnection();
+        Connection connection = GetTrackerConnection.getDefaultConnection();
         try {
             GetGroupListCommand command = new GetGroupListCommand();
             List<GroupState> list = command.execute(connection);

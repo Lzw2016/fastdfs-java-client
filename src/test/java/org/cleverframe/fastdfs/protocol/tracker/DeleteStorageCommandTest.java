@@ -1,7 +1,7 @@
 package org.cleverframe.fastdfs.protocol.tracker;
 
 import org.cleverframe.fastdfs.conn.Connection;
-import org.cleverframe.fastdfs.testbase.GetConnection;
+import org.cleverframe.fastdfs.testbase.GetTrackerConnection;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +18,7 @@ public class DeleteStorageCommandTest {
 
     @Test
     public void test01() {
-        Connection connection = GetConnection.getDefaultConnection();
+        Connection connection = GetTrackerConnection.getDefaultConnection();
         try {
             DeleteStorageCommand command = new DeleteStorageCommand("group1", "192.168.56.139");
             command.execute(connection);

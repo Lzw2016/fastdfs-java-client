@@ -2,7 +2,7 @@ package org.cleverframe.fastdfs.protocol.tracker;
 
 import org.cleverframe.fastdfs.conn.Connection;
 import org.cleverframe.fastdfs.model.StorageNodeInfo;
-import org.cleverframe.fastdfs.testbase.GetConnection;
+import org.cleverframe.fastdfs.testbase.GetTrackerConnection;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +19,7 @@ public class GetFetchStorageCommandTest {
 
     @Test
     public void test01() {
-        Connection connection = GetConnection.getDefaultConnection();
+        Connection connection = GetTrackerConnection.getDefaultConnection();
         try {
             GetFetchStorageCommand command = new GetFetchStorageCommand("group1", "/00/00/wKg4i1gw1JWALQsHAATA4WNjQT4937.jpg", false);
             StorageNodeInfo storageNodeInfo = command.execute(connection);
