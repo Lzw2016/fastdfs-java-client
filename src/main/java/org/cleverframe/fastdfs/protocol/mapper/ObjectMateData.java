@@ -54,14 +54,6 @@ public class ObjectMateData {
         validatFieldListDefine();
     }
 
-    public String getClassName() {
-        return className;
-    }
-
-    public List<FieldMateData> getFieldList() {
-        return Collections.unmodifiableList(fieldList);
-    }
-
     /**
      * 解析映射对象数据映射情况
      */
@@ -104,6 +96,14 @@ public class ObjectMateData {
         }
     }
 
+    public String getClassName() {
+        return className;
+    }
+
+    public List<FieldMateData> getFieldList() {
+        return Collections.unmodifiableList(fieldList);
+    }
+
     /**
      * 是否有动态数据列
      */
@@ -119,8 +119,7 @@ public class ObjectMateData {
     /**
      * 获取动态数据列长度
      */
-    private int getDynamicFieldSize(Object obj, Charset charset)
-            throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+    private int getDynamicFieldSize(Object obj, Charset charset) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
         int size = 0;
         for (FieldMateData field : dynamicFieldList) {
             size = size + field.getDynamicFieldByteSize(obj, charset);
@@ -133,8 +132,7 @@ public class ObjectMateData {
      */
     public int getFieldsFixTotalSize() {
         if (hasDynamicField()) {
-            throw new FastDFSColumnMapException(
-                    className + " class hasDynamicField, unsupport operator getFieldsTotalSize");
+            throw new FastDFSColumnMapException(className + "类中有Dynamic字段, 不支持操作getFieldsTotalSize");
         }
         return fieldsTotalSize;
     }
@@ -173,8 +171,9 @@ public class ObjectMateData {
      * 导出调试信息
      */
     public void dumpObjectMateData() {
-        logger.debug("dump class={}", className);
-        logger.debug("----------------------------------------");
+        logger.debug("#----------------------------------------------------------------------------------------------------------------------------------");
+        logger.debug("# dump class={}", className);
+        logger.debug("#----------------------------------------------------------------------------------------------------------------------------------");
         for (FieldMateData md : fieldList) {
             logger.debug(md.toString());
         }

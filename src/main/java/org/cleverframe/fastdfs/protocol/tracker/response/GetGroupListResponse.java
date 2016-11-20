@@ -1,6 +1,6 @@
 package org.cleverframe.fastdfs.protocol.tracker.response;
 
-import org.cleverframe.fastdfs.model.StorageState;
+import org.cleverframe.fastdfs.model.GroupState;
 import org.cleverframe.fastdfs.protocol.FastDFSResponse;
 import org.cleverframe.fastdfs.protocol.mapper.ObjectMateData;
 import org.cleverframe.fastdfs.utils.FastDFSParamMapperUtils;
@@ -12,32 +12,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 获取Storage服务器状态响应
+ * 获取Group信息相应
  * 作者：LiZW <br/>
- * 创建时间：2016/11/20 12:48 <br/>
+ * 创建时间：2016/11/20 15:09 <br/>
  */
-public class GetListStorageResponse extends FastDFSResponse<List<StorageState>> {
+public class GetGroupListResponse extends FastDFSResponse<List<GroupState>> {
 
     /**
      * 解析反馈内容
      */
     @Override
-    public List<StorageState> decodeContent(InputStream in, Charset charset) throws IOException {
+    public List<GroupState> decodeContent(InputStream in, Charset charset) throws IOException {
         // 解析报文内容
         byte[] bytes = new byte[(int) getContentLength()];
         int contentSize = in.read(bytes);
+        // 此处fastdfs的服务端有bug
         if (contentSize != getContentLength()) {
-            throw new IOException("读取到的数据长度与协议长度不符");
+            try {
+                return decodeGroup(bytes, charset);
+            } catch (Exception e) {
+                throw new IOException("读取到的数据长度与协议长度不符");
+            }
+        } else {
+            return decodeGroup(bytes, charset);
         }
-        return decodeGroup(bytes, charset);
     }
 
     /**
      * 解析Group
      */
-    private List<StorageState> decodeGroup(byte[] bs, Charset charset) throws IOException {
+    private List<GroupState> decodeGroup(byte[] bs, Charset charset) throws IOException {
         // 获取对象转换定义
-        ObjectMateData objectMateData = FastDFSParamMapperUtils.getObjectMap(StorageState.class);
+        ObjectMateData objectMateData = FastDFSParamMapperUtils.getObjectMap(GroupState.class);
         int fixFieldsTotalSize = objectMateData.getFieldsFixTotalSize();
         if (bs.length % fixFieldsTotalSize != 0) {
             throw new IOException("FixFieldsTotalSize=" + fixFieldsTotalSize + ", 但是数据长度=" + bs.length + ", 数据无效");
@@ -45,11 +51,11 @@ public class GetListStorageResponse extends FastDFSResponse<List<StorageState>> 
         // 计算反馈对象数量
         int count = bs.length / fixFieldsTotalSize;
         int offset = 0;
-        List<StorageState> results = new ArrayList<StorageState>(count);
+        List<GroupState> results = new ArrayList<GroupState>(count);
         for (int i = 0; i < count; i++) {
             byte[] one = new byte[fixFieldsTotalSize];
             System.arraycopy(bs, offset, one, 0, fixFieldsTotalSize);
-            results.add(FastDFSParamMapperUtils.map(one, StorageState.class, charset));
+            results.add(FastDFSParamMapperUtils.map(one, GroupState.class, charset));
             offset += fixFieldsTotalSize;
         }
         return results;

@@ -12,14 +12,14 @@ import java.util.List;
  * 作者：LiZW <br/>
  * 创建时间：2016/11/20 12:41 <br/>
  */
-public class GetListStorageCommand extends AbstractFastDFSCommand<List<StorageState>> {
+public class GetStorageListCommand extends AbstractFastDFSCommand<List<StorageState>> {
 
-    public GetListStorageCommand(String groupName, String storageIpAddr) {
+    public GetStorageListCommand(String groupName, String storageIpAddr) {
         super.request = new GetListStorageRequest(groupName, storageIpAddr);
         super.response = new GetListStorageResponse();
     }
 
-    public GetListStorageCommand(String groupName) {
+    public GetStorageListCommand(String groupName) {
         super.request = new GetListStorageRequest(groupName);
         super.response = new GetListStorageResponse();
     }

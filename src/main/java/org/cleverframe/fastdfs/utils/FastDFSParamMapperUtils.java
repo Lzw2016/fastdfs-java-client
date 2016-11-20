@@ -72,7 +72,6 @@ public class FastDFSParamMapperUtils {
      */
     private static <T> T mapByIndex(byte[] content, Class<T> genericType, ObjectMateData objectMap, Charset charset)
             throws InstantiationException, IllegalAccessException, InvocationTargetException {
-
         List<FieldMateData> mappingFields = objectMap.getFieldList();
         T obj = genericType.newInstance();
         for (FieldMateData field : mappingFields) {

@@ -49,11 +49,12 @@ public class DefaultConnection implements Connection {
         try {
             socket = new Socket();
             socket.setSoTimeout(soTimeout);
-            logger.debug("connect to {} soTimeout={} connectTimeout={}", address, soTimeout, connectTimeout);
+            logger.debug("开始连接到服务器 {} soTimeout={} connectTimeout={}", address, soTimeout, connectTimeout);
             this.charset = charset;
             socket.connect(address, connectTimeout);
+            logger.debug("成功连接到服务器:{}", address);
         } catch (IOException e) {
-            throw new FastDFSConnectException("can't create connection to" + address, e);
+            throw new FastDFSConnectException("不能连接到服务器:" + address, e);
         }
     }
 
@@ -61,7 +62,7 @@ public class DefaultConnection implements Connection {
      * 正常关闭连接
      */
     public synchronized void close() {
-        logger.debug("disconnect from {}", socket);
+        logger.debug("断开连接, 服务器地址:{}", socket);
         byte[] header = new byte[OtherConstants.FDFS_PROTO_PKG_LEN_SIZE + 2];
         Arrays.fill(header, (byte) 0);
         byte[] hex_len = BytesUtil.long2buff(0);
@@ -72,7 +73,7 @@ public class DefaultConnection implements Connection {
             socket.getOutputStream().write(header);
             socket.close();
         } catch (IOException e) {
-            logger.error("close connection error", e);
+            logger.error("关闭连接失败", e);
         } finally {
             IOUtils.closeQuietly(socket);
         }
@@ -92,7 +93,7 @@ public class DefaultConnection implements Connection {
     @Override
     @SuppressWarnings("SimplifiableIfStatement")
     public boolean isValid() {
-        logger.debug("check connection status of {} ", this);
+        logger.debug("检查连接状态 {} ", this.socket);
         try {
             byte[] header = new byte[OtherConstants.FDFS_PROTO_PKG_LEN_SIZE + 2];
             Arrays.fill(header, (byte) 0);
@@ -107,7 +108,7 @@ public class DefaultConnection implements Connection {
             }
             return header[OtherConstants.PROTO_HEADER_STATUS_INDEX] == 0;
         } catch (IOException e) {
-            logger.error("valid connection error", e);
+            logger.error("检查连接状态异常", e);
             return false;
         }
     }
