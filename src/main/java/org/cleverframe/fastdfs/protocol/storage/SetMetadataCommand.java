@@ -1,8 +1,7 @@
 package org.cleverframe.fastdfs.protocol.storage;
 
 import org.cleverframe.fastdfs.model.MateData;
-import org.cleverframe.fastdfs.protocol.AbstractFastDFSCommand;
-import org.cleverframe.fastdfs.protocol.FastDFSResponse;
+import org.cleverframe.fastdfs.protocol.BaseResponse;
 import org.cleverframe.fastdfs.protocol.storage.enums.StorageMetadataSetType;
 import org.cleverframe.fastdfs.protocol.storage.request.SetMetadataRequest;
 
@@ -13,7 +12,7 @@ import java.util.Set;
  * 作者：LiZW <br/>
  * 创建时间：2016/11/20 18:40 <br/>
  */
-public class SetMetadataCommand extends AbstractFastDFSCommand<Void> {
+public class SetMetadataCommand extends StorageCommand<Void> {
 
     /**
      * 设置文件标签(元数据)
@@ -26,7 +25,7 @@ public class SetMetadataCommand extends AbstractFastDFSCommand<Void> {
     public SetMetadataCommand(String groupName, String path, Set<MateData> metaDataSet, StorageMetadataSetType type) {
         this.request = new SetMetadataRequest(groupName, path, metaDataSet, type);
         // 输出响应
-        this.response = new FastDFSResponse<Void>() {
+        this.response = new BaseResponse<Void>() {
         };
     }
 }

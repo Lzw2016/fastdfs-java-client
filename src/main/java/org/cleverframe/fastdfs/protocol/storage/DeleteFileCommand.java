@@ -1,7 +1,6 @@
 package org.cleverframe.fastdfs.protocol.storage;
 
-import org.cleverframe.fastdfs.protocol.AbstractFastDFSCommand;
-import org.cleverframe.fastdfs.protocol.FastDFSResponse;
+import org.cleverframe.fastdfs.protocol.BaseResponse;
 import org.cleverframe.fastdfs.protocol.storage.request.DeleteFileRequest;
 
 /**
@@ -9,7 +8,7 @@ import org.cleverframe.fastdfs.protocol.storage.request.DeleteFileRequest;
  * 作者：LiZW <br/>
  * 创建时间：2016/11/20 17:03 <br/>
  */
-public class DeleteFileCommand extends AbstractFastDFSCommand<Void> {
+public class DeleteFileCommand extends StorageCommand<Void> {
     /**
      * 文件删除命令
      *
@@ -20,7 +19,7 @@ public class DeleteFileCommand extends AbstractFastDFSCommand<Void> {
         super();
         this.request = new DeleteFileRequest(groupName, path);
         // 输出响应
-        this.response = new FastDFSResponse<Void>() {
+        this.response = new BaseResponse<Void>() {
         };
     }
 }

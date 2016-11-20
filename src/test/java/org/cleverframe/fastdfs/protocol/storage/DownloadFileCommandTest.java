@@ -1,6 +1,7 @@
 package org.cleverframe.fastdfs.protocol.storage;
 
 import org.cleverframe.fastdfs.conn.Connection;
+import org.cleverframe.fastdfs.protocol.storage.callback.DownloadFileWriter;
 import org.cleverframe.fastdfs.protocol.tracker.GetGroupListCommandTest;
 import org.cleverframe.fastdfs.testbase.GetStorageConnection;
 import org.junit.Test;

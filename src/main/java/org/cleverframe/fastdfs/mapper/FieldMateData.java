@@ -1,4 +1,4 @@
-package org.cleverframe.fastdfs.protocol.mapper;
+package org.cleverframe.fastdfs.mapper;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.cleverframe.fastdfs.constant.OtherConstants;
@@ -48,12 +48,12 @@ public class FieldMateData {
     /**
      * 动态属性类型
      */
-    DynamicFieldType dynamicFieldType;
+    private DynamicFieldType dynamicFieldType;
 
     /**
      * 构造函数
      */
-    public FieldMateData(Field mapedfield, int offsize) {
+    FieldMateData(Field mapedfield, int offsize) {
         FastDFSColumn column = mapedfield.getAnnotation(FastDFSColumn.class);
         this.field = mapedfield;
         this.index = column.index();
@@ -115,7 +115,7 @@ public class FieldMateData {
     /**
      * 获取真实属性
      */
-    public int getRealeSize() {
+    int getRealeSize() {
         // 如果是动态属性
         if (isDynamicField()) {
             return 0;
@@ -178,7 +178,7 @@ public class FieldMateData {
      * 获取动态属性长度
      */
     @SuppressWarnings("unchecked")
-    public int getDynamicFieldByteSize(Object bean, Charset charset)
+    int getDynamicFieldByteSize(Object bean, Charset charset)
             throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
         Object value = PropertyUtils.getProperty(bean, field.getName());
         if (null == value) {

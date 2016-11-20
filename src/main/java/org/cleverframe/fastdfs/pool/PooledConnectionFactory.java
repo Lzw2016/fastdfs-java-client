@@ -5,6 +5,8 @@ import org.apache.commons.pool2.PooledObject;
 import org.apache.commons.pool2.impl.DefaultPooledObject;
 import org.cleverframe.fastdfs.conn.Connection;
 import org.cleverframe.fastdfs.conn.SocketConnection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.InetSocketAddress;
 import java.nio.charset.Charset;
@@ -15,6 +17,21 @@ import java.nio.charset.Charset;
  * 创建时间：2016/11/20 19:33 <br/>
  */
 public class PooledConnectionFactory extends BaseKeyedPooledObjectFactory<InetSocketAddress, Connection> {
+    /**
+     * 日志
+     */
+    private static final Logger logger = LoggerFactory.getLogger(PooledConnectionFactory.class);
+
+    /**
+     * 默认字符集
+     */
+    private static final String DEFAULT_CHARSET_NAME = "UTF-8";
+
+    /**
+     * 设置默认字符集
+     */
+    private String charsetName = DEFAULT_CHARSET_NAME;
+
     /**
      * 读取时间
      */
@@ -30,15 +47,15 @@ public class PooledConnectionFactory extends BaseKeyedPooledObjectFactory<InetSo
      */
     private Charset charset;
 
-    /**
-     * 默认字符集
-     */
-    private static final String DEFAULT_CHARSET_NAME = "UTF-8";
+    public PooledConnectionFactory(int soTimeout, int connectTimeout, Charset charset) {
+        this.soTimeout = soTimeout;
+        this.connectTimeout = connectTimeout;
+        this.charset = charset;
+    }
 
-    /**
-     * 设置默认字符集
-     */
-    private String charsetName = DEFAULT_CHARSET_NAME;
+    public PooledConnectionFactory(int soTimeout, int connectTimeout) {
+        this(soTimeout, connectTimeout, null);
+    }
 
     /**
      * 创建连接
@@ -49,7 +66,9 @@ public class PooledConnectionFactory extends BaseKeyedPooledObjectFactory<InetSo
         if (null == charset) {
             charset = Charset.forName(charsetName);
         }
-        return new SocketConnection(address, soTimeout, connectTimeout, charset);
+        SocketConnection connection = new SocketConnection(address, soTimeout, connectTimeout, charset);
+        logger.debug("新建连接[{}]", address);
+        return connection;
     }
 
     /**
@@ -63,17 +82,20 @@ public class PooledConnectionFactory extends BaseKeyedPooledObjectFactory<InetSo
     @Override
     public void destroyObject(InetSocketAddress key, PooledObject<Connection> p) throws Exception {
         p.getObject().close();
+        logger.debug("关闭连接[{}]", key);
     }
 
     /**
+     * 验证连接是否可用
      *
-     * @param key
-     * @param p
-     * @return
+     * @param key 连接对应的Key
+     * @param p   池化的对象
      */
     @Override
     public boolean validateObject(InetSocketAddress key, PooledObject<Connection> p) {
-        return p.getObject().isValid();
+        boolean flag = p.getObject().isValid();
+        logger.debug("验证连接是否可用[{]],验证结果[{}]", key, flag);
+        return flag;
     }
 
     public int getSoTimeout() {

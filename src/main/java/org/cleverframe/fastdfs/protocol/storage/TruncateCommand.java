@@ -1,7 +1,6 @@
 package org.cleverframe.fastdfs.protocol.storage;
 
-import org.cleverframe.fastdfs.protocol.AbstractFastDFSCommand;
-import org.cleverframe.fastdfs.protocol.FastDFSResponse;
+import org.cleverframe.fastdfs.protocol.BaseResponse;
 import org.cleverframe.fastdfs.protocol.storage.request.TruncateRequest;
 
 /**
@@ -9,7 +8,7 @@ import org.cleverframe.fastdfs.protocol.storage.request.TruncateRequest;
  * 作者：LiZW <br/>
  * 创建时间：2016/11/20 18:53 <br/>
  */
-public class TruncateCommand extends AbstractFastDFSCommand<Void> {
+public class TruncateCommand extends StorageCommand<Void> {
 
     /**
      * 文件Truncate命令
@@ -21,7 +20,7 @@ public class TruncateCommand extends AbstractFastDFSCommand<Void> {
         super();
         this.request = new TruncateRequest(path, fileSize);
         // 输出响应
-        this.response = new FastDFSResponse<Void>() {
+        this.response = new BaseResponse<Void>() {
         };
     }
 }

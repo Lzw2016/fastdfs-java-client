@@ -1,4 +1,4 @@
-package org.cleverframe.fastdfs.protocol.mapper;
+package org.cleverframe.fastdfs.mapper;
 
 
 import java.lang.annotation.*;

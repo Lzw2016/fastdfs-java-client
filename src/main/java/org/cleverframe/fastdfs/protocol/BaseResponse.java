@@ -1,7 +1,7 @@
 package org.cleverframe.fastdfs.protocol;
 
-import org.cleverframe.fastdfs.utils.ReflectionsUtils;
 import org.cleverframe.fastdfs.utils.FastDFSParamMapperUtils;
+import org.cleverframe.fastdfs.utils.ReflectionsUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,7 +12,7 @@ import java.nio.charset.Charset;
  * 作者：LiZW <br/>
  * 创建时间：2016/11/20 12:15 <br/>
  */
-public class FastDFSResponse<T> {
+public abstract class BaseResponse<T> {
     /**
      * 报文头
      */
@@ -26,7 +26,7 @@ public class FastDFSResponse<T> {
     /**
      * 构造函数
      */
-    public FastDFSResponse() {
+    public BaseResponse() {
         this.genericType = ReflectionsUtils.getClassGenricType(getClass());
     }
 

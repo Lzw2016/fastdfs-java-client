@@ -7,8 +7,9 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Arrays;
-import java.util.List;
+import java.net.InetSocketAddress;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * 作者：LiZW <br/>
@@ -20,31 +21,76 @@ public class ConnectionManagerTest {
      */
     private static final Logger logger = LoggerFactory.getLogger(ConnectionManagerTest.class);
 
-    private static String[] ips = {"192.168.56.139:22122"};
-    private static List<String> trackerIpList = Arrays.asList(ips);
-
     @Test
     public void test() {
-        PooledConnectionFactory pooledConnectionFactory = new PooledConnectionFactory();
-        pooledConnectionFactory.setConnectTimeout(500);
-        pooledConnectionFactory.setSoTimeout(500);
+        PooledConnectionFactory pooledConnectionFactory = new PooledConnectionFactory(500, 500);
 
         GenericKeyedObjectPoolConfig conf = new GenericKeyedObjectPoolConfig();
         conf.setMaxTotal(20);
         FastDfsConnectionPool connectionPool = new FastDfsConnectionPool(pooledConnectionFactory, conf);
 
-        TrackerConnectionManager trackerConnectionManager = new TrackerConnectionManager(connectionPool);
-        trackerConnectionManager.setTrackerList(trackerIpList);
-        trackerConnectionManager.initTracker();
+        Set<String> trackerSet = new HashSet<String>();
+        trackerSet.add("192.168.56.139:22122");
 
-        trackerConnectionManager.dumpPoolInfo();
+        ConnectionManager connectionManager = new ConnectionManager(trackerSet, connectionPool);
+
+        connectionManager.dumpPoolInfo();
 
         GetStorageNodeCommand command = new GetStorageNodeCommand();
-        StorageNode storageNode = trackerConnectionManager.executeTrackerCmd(command);
+        StorageNode storageNode = connectionManager.execute(command);
         logger.info(storageNode.toString());
 
-        trackerConnectionManager.dumpPoolInfo();
+        connectionManager.dumpPoolInfo();
 
         connectionPool.close();
+    }
+
+    @Test
+    public void test01() {
+        InetSocketAddress address = new InetSocketAddress("158.36.25.2", 125);
+        logger.info(address.getAddress() + ":" + address.getPort());
+    }
+
+    @Test
+    public void test03() throws InterruptedException {
+        PooledConnectionFactory pooledConnectionFactory = new PooledConnectionFactory(5000, 5000);
+
+        GenericKeyedObjectPoolConfig conf = new GenericKeyedObjectPoolConfig();
+        conf.setMaxTotal(20);
+        FastDfsConnectionPool connectionPool = new FastDfsConnectionPool(pooledConnectionFactory, conf);
+
+        Set<String> trackerSet = new HashSet<String>();
+        trackerSet.add("192.168.56.139:22122");
+
+        ConnectionManager connectionManager = new ConnectionManager(trackerSet, connectionPool);
+
+        for (int i = 0; i <= 10; i++) {
+            Thread thread = new PoolTest(connectionManager);
+            thread.start();
+        }
+
+        for (int i = 0; i <= 10; i++) {
+            connectionManager.dumpPoolInfo();
+            Thread.sleep(1000 * 2);
+        }
+
+        connectionPool.close();
+    }
+
+    private class PoolTest extends Thread {
+
+        private ConnectionManager connectionManager;
+
+        public PoolTest(ConnectionManager connectionManager) {
+            this.connectionManager = connectionManager;
+        }
+
+        @Override
+        public void run() {
+            GetStorageNodeCommand command = new GetStorageNodeCommand();
+            StorageNode storageNode = connectionManager.execute(command);
+            logger.info("################ " + storageNode.toString());
+            connectionManager.dumpPoolInfo();
+        }
     }
 }

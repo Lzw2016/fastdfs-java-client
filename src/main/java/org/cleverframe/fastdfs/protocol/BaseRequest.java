@@ -1,6 +1,6 @@
 package org.cleverframe.fastdfs.protocol;
 
-import org.cleverframe.fastdfs.protocol.mapper.ObjectMateData;
+import org.cleverframe.fastdfs.mapper.ObjectMateData;
 import org.cleverframe.fastdfs.utils.FastDFSParamMapperUtils;
 
 import java.io.InputStream;
@@ -11,7 +11,7 @@ import java.nio.charset.Charset;
  * 作者：LiZW <br/>
  * 创建时间：2016/11/20 1:00 <br/>
  */
-public abstract class FastDFSRequest {
+public abstract class BaseRequest {
     /**
      * 报文头
      */

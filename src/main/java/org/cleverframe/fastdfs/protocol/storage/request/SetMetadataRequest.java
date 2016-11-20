@@ -4,10 +4,10 @@ import org.apache.commons.lang3.Validate;
 import org.cleverframe.fastdfs.constant.CmdConstants;
 import org.cleverframe.fastdfs.constant.OtherConstants;
 import org.cleverframe.fastdfs.model.MateData;
-import org.cleverframe.fastdfs.protocol.FastDFSRequest;
+import org.cleverframe.fastdfs.protocol.BaseRequest;
 import org.cleverframe.fastdfs.protocol.ProtocolHead;
-import org.cleverframe.fastdfs.protocol.mapper.DynamicFieldType;
-import org.cleverframe.fastdfs.protocol.mapper.FastDFSColumn;
+import org.cleverframe.fastdfs.mapper.DynamicFieldType;
+import org.cleverframe.fastdfs.mapper.FastDFSColumn;
 import org.cleverframe.fastdfs.protocol.storage.enums.StorageMetadataSetType;
 import org.cleverframe.fastdfs.utils.MetadataMapperUtils;
 
@@ -18,7 +18,7 @@ import java.util.Set;
  * 作者：LiZW <br/>
  * 创建时间：2016/11/20 18:46 <br/>
  */
-public class SetMetadataRequest extends FastDFSRequest {
+public class SetMetadataRequest extends BaseRequest {
     /**
      * 文件名byte长度
      */

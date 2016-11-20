@@ -1,10 +1,10 @@
 package org.cleverframe.fastdfs.protocol.storage.request;
 
 import org.cleverframe.fastdfs.constant.CmdConstants;
-import org.cleverframe.fastdfs.protocol.FastDFSRequest;
+import org.cleverframe.fastdfs.protocol.BaseRequest;
 import org.cleverframe.fastdfs.protocol.ProtocolHead;
-import org.cleverframe.fastdfs.protocol.mapper.DynamicFieldType;
-import org.cleverframe.fastdfs.protocol.mapper.FastDFSColumn;
+import org.cleverframe.fastdfs.mapper.DynamicFieldType;
+import org.cleverframe.fastdfs.mapper.FastDFSColumn;
 
 import java.io.InputStream;
 import java.nio.charset.Charset;
@@ -13,7 +13,7 @@ import java.nio.charset.Charset;
  * 作者：LiZW <br/>
  * 创建时间：2016/11/20 18:30 <br/>
  */
-public class ModifyRequest extends FastDFSRequest {
+public class ModifyRequest extends BaseRequest {
     /**
      * 文件路径长度
      */

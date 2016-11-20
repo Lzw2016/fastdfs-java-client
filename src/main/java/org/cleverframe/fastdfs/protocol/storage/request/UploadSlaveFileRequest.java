@@ -2,10 +2,10 @@ package org.cleverframe.fastdfs.protocol.storage.request;
 
 import org.cleverframe.fastdfs.constant.CmdConstants;
 import org.cleverframe.fastdfs.constant.OtherConstants;
-import org.cleverframe.fastdfs.protocol.FastDFSRequest;
+import org.cleverframe.fastdfs.protocol.BaseRequest;
 import org.cleverframe.fastdfs.protocol.ProtocolHead;
-import org.cleverframe.fastdfs.protocol.mapper.DynamicFieldType;
-import org.cleverframe.fastdfs.protocol.mapper.FastDFSColumn;
+import org.cleverframe.fastdfs.mapper.DynamicFieldType;
+import org.cleverframe.fastdfs.mapper.FastDFSColumn;
 
 import java.io.InputStream;
 
@@ -14,7 +14,7 @@ import java.io.InputStream;
  * 作者：LiZW <br/>
  * 创建时间：2016/11/20 19:09 <br/>
  */
-public class UploadSlaveFileRequest extends FastDFSRequest {
+public class UploadSlaveFileRequest extends BaseRequest {
     /**
      * 主文件名长度
      */

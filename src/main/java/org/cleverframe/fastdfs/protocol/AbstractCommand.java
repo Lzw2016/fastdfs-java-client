@@ -15,21 +15,21 @@ import java.nio.charset.Charset;
  * 作者：LiZW <br/>
  * 创建时间：2016/11/20 12:23 <br/>
  */
-public class AbstractFastDFSCommand<T> implements FastDFSCommand<T> {
+public abstract class AbstractCommand<T> implements BaseCommand<T> {
     /**
      * 日志
      */
-    private static final Logger logger = LoggerFactory.getLogger(AbstractFastDFSCommand.class);
+    private static final Logger logger = LoggerFactory.getLogger(AbstractCommand.class);
 
     /**
      * 请求对象
      */
-    protected FastDFSRequest request;
+    protected BaseRequest request;
 
     /**
      * 响应对象
      */
-    protected FastDFSResponse<T> response;
+    protected BaseResponse<T> response;
 
     /**
      * 对服务端发出请求然后接收反馈

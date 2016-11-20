@@ -1,12 +1,14 @@
 package org.cleverframe.fastdfs.pool;
 
 import org.cleverframe.fastdfs.conn.Connection;
+import org.cleverframe.fastdfs.exception.FastDfsConnectException;
 import org.cleverframe.fastdfs.exception.FastDfsException;
-import org.cleverframe.fastdfs.protocol.FastDFSCommand;
+import org.cleverframe.fastdfs.protocol.BaseCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.InetSocketAddress;
+import java.util.Set;
 
 /**
  * 连接池管理<br/>
@@ -21,25 +23,25 @@ public class ConnectionManager {
     private static final Logger logger = LoggerFactory.getLogger(ConnectionManager.class);
 
     /**
+     * Tracker定位
+     */
+    private TrackerLocator trackerLocator;
+
+    /**
      * 连接池
      */
     private FastDfsConnectionPool pool;
 
     /**
      * 构造函数
-     */
-    ConnectionManager() {
-        super();
-    }
-
-    /**
-     * 构造函数
      *
-     * @param pool 连接池
+     * @param trackerSet Tracker Server服务器IP地址集合
+     * @param pool       连接池
      */
-    public ConnectionManager(FastDfsConnectionPool pool) {
-        super();
+    public ConnectionManager(Set<String> trackerSet, FastDfsConnectionPool pool) {
+        logger.debug("初始化Tracker Server连接 {}", trackerSet);
         this.pool = pool;
+        trackerLocator = new TrackerLocator(trackerSet);
     }
 
     /**
@@ -48,7 +50,7 @@ public class ConnectionManager {
      * @param address 请求地址
      * @return 连接
      */
-    Connection getConnection(InetSocketAddress address) {
+    private Connection getConnection(InetSocketAddress address) {
         Connection conn;
         try {
             // 获取连接
@@ -64,29 +66,27 @@ public class ConnectionManager {
     /**
      * 获取连接并执行交易
      *
-     * @param address 请求地址
-     * @param command 请求命令
-     * @return 返回请求结果数据
+     * @param command FastDFS命令执行对象
+     * @return 返回请求响应对象
      */
-    public <T> T executeCmd(InetSocketAddress address, FastDFSCommand<T> command) {
+    public <T> T execute(BaseCommand<T> command) {
+        Connection conn;
+        InetSocketAddress address = null;
         // 获取连接
-        Connection conn = getConnection(address);
-        // 执行交易
-        return execute(address, conn, command);
-    }
-
-    /**
-     * 执行交易
-     *
-     * @param address 请求地址
-     * @param conn    请求连接
-     * @param command 请求命令
-     * @return 返回请求结果数据
-     */
-    protected <T> T execute(InetSocketAddress address, Connection conn, FastDFSCommand<T> command) {
         try {
-            // 发送请求
-            logger.debug("对地址[{}] 发送请求[{}]", address, command.getClass().getSimpleName());
+            address = trackerLocator.getTrackerAddress();
+            logger.debug("获取到Tracker连接地址{}", address);
+            conn = getConnection(address);
+            trackerLocator.setActive(address, true);
+        } catch (FastDfsConnectException e) {
+            trackerLocator.setActive(address, false);
+            throw e;
+        } catch (Exception e) {
+            throw new RuntimeException("从连接池中获取连接失败", e);
+        }
+        // 发送请求
+        try {
+            logger.debug("发送请求, 服务器地址[{}], 请求类型[{}]", address, command.getClass().getSimpleName());
             return command.execute(conn);
         } catch (FastDfsException e) {
             throw e;

@@ -3,10 +3,10 @@ package org.cleverframe.fastdfs.protocol.tracker.request;
 import org.apache.commons.lang3.Validate;
 import org.cleverframe.fastdfs.constant.CmdConstants;
 import org.cleverframe.fastdfs.constant.OtherConstants;
-import org.cleverframe.fastdfs.protocol.FastDFSRequest;
+import org.cleverframe.fastdfs.protocol.BaseRequest;
 import org.cleverframe.fastdfs.protocol.ProtocolHead;
-import org.cleverframe.fastdfs.protocol.mapper.DynamicFieldType;
-import org.cleverframe.fastdfs.protocol.mapper.FastDFSColumn;
+import org.cleverframe.fastdfs.mapper.DynamicFieldType;
+import org.cleverframe.fastdfs.mapper.FastDFSColumn;
 
 /**
  * 获取Storage服务器状态请求
@@ -14,7 +14,7 @@ import org.cleverframe.fastdfs.protocol.mapper.FastDFSColumn;
  * 作者：LiZW <br/>
  * 创建时间：2016/11/20 12:44 <br/>
  */
-public class GetListStorageRequest extends FastDFSRequest {
+public class GetListStorageRequest extends BaseRequest {
     /**
      * 组名
      */

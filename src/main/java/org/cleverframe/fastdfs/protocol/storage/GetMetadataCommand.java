@@ -1,7 +1,6 @@
 package org.cleverframe.fastdfs.protocol.storage;
 
 import org.cleverframe.fastdfs.model.MateData;
-import org.cleverframe.fastdfs.protocol.AbstractFastDFSCommand;
 import org.cleverframe.fastdfs.protocol.storage.request.GetMetadataRequest;
 import org.cleverframe.fastdfs.protocol.storage.response.GetMetadataResponse;
 
@@ -11,7 +10,7 @@ import java.util.Set;
  * 作者：LiZW <br/>
  * 创建时间：2016/11/20 17:07 <br/>
  */
-public class GetMetadataCommand extends AbstractFastDFSCommand<Set<MateData>> {
+public class GetMetadataCommand extends StorageCommand<Set<MateData>> {
 
     /**
      * 设置文件标签(元数据)

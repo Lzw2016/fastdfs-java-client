@@ -1,7 +1,7 @@
 package org.cleverframe.fastdfs.model;
 
 import org.cleverframe.fastdfs.constant.OtherConstants;
-import org.cleverframe.fastdfs.protocol.mapper.FastDFSColumn;
+import org.cleverframe.fastdfs.mapper.FastDFSColumn;
 
 import java.io.Serializable;
 

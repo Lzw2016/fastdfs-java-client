@@ -1,4 +1,4 @@
-package org.cleverframe.fastdfs.protocol.mapper;
+package org.cleverframe.fastdfs.mapper;
 
 import org.cleverframe.fastdfs.exception.FastDfsColumnMapException;
 import org.slf4j.Logger;

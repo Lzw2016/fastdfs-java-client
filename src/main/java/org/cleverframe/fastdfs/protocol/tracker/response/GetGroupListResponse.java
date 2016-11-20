@@ -1,8 +1,8 @@
 package org.cleverframe.fastdfs.protocol.tracker.response;
 
 import org.cleverframe.fastdfs.model.GroupState;
-import org.cleverframe.fastdfs.protocol.FastDFSResponse;
-import org.cleverframe.fastdfs.protocol.mapper.ObjectMateData;
+import org.cleverframe.fastdfs.protocol.BaseResponse;
+import org.cleverframe.fastdfs.mapper.ObjectMateData;
 import org.cleverframe.fastdfs.utils.FastDFSParamMapperUtils;
 
 import java.io.IOException;
@@ -16,7 +16,7 @@ import java.util.List;
  * 作者：LiZW <br/>
  * 创建时间：2016/11/20 15:09 <br/>
  */
-public class GetGroupListResponse extends FastDFSResponse<List<GroupState>> {
+public class GetGroupListResponse extends BaseResponse<List<GroupState>> {
 
     /**
      * 解析反馈内容

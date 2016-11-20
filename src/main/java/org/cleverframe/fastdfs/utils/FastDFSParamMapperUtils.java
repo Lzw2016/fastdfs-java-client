@@ -2,8 +2,8 @@ package org.cleverframe.fastdfs.utils;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.cleverframe.fastdfs.exception.FastDfsColumnMapException;
-import org.cleverframe.fastdfs.protocol.mapper.FieldMateData;
-import org.cleverframe.fastdfs.protocol.mapper.ObjectMateData;
+import org.cleverframe.fastdfs.mapper.FieldMateData;
+import org.cleverframe.fastdfs.mapper.ObjectMateData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

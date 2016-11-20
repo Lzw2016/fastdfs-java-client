@@ -1,8 +1,7 @@
 package org.cleverframe.fastdfs.protocol.storage;
 
 import org.cleverframe.fastdfs.model.StorePath;
-import org.cleverframe.fastdfs.protocol.AbstractFastDFSCommand;
-import org.cleverframe.fastdfs.protocol.FastDFSResponse;
+import org.cleverframe.fastdfs.protocol.BaseResponse;
 import org.cleverframe.fastdfs.protocol.storage.request.UploadFileRequest;
 
 import java.io.InputStream;
@@ -12,7 +11,7 @@ import java.io.InputStream;
  * 作者：LiZW <br/>
  * 创建时间：2016/11/20 18:59 <br/>
  */
-public class UploadFileCommand extends AbstractFastDFSCommand<StorePath> {
+public class UploadFileCommand extends StorageCommand<StorePath> {
 
     /**
      * 文件上传命令
@@ -27,7 +26,7 @@ public class UploadFileCommand extends AbstractFastDFSCommand<StorePath> {
         super();
         this.request = new UploadFileRequest(storeIndex, inputStream, fileExtName, fileSize, isAppenderFile);
         // 输出响应
-        this.response = new FastDFSResponse<StorePath>() {
+        this.response = new BaseResponse<StorePath>() {
         };
     }
 }

@@ -1,7 +1,7 @@
 package org.cleverframe.fastdfs.protocol.storage.response;
 
-import org.cleverframe.fastdfs.protocol.FastDFSResponse;
-import org.cleverframe.fastdfs.protocol.storage.DownloadCallback;
+import org.cleverframe.fastdfs.protocol.BaseResponse;
+import org.cleverframe.fastdfs.protocol.storage.callback.DownloadCallback;
 import org.cleverframe.fastdfs.protocol.storage.FastDFSInputStream;
 
 import java.io.IOException;
@@ -12,7 +12,7 @@ import java.nio.charset.Charset;
  * 作者：LiZW <br/>
  * 创建时间：2016/11/20 16:06 <br/>
  */
-public class DownloadFileResponse<T> extends FastDFSResponse<T> {
+public class DownloadFileResponse<T> extends BaseResponse<T> {
 
     private DownloadCallback<T> callback;
 

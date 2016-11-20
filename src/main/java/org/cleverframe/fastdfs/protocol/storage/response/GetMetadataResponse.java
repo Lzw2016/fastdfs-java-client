@@ -1,7 +1,7 @@
 package org.cleverframe.fastdfs.protocol.storage.response;
 
 import org.cleverframe.fastdfs.model.MateData;
-import org.cleverframe.fastdfs.protocol.FastDFSResponse;
+import org.cleverframe.fastdfs.protocol.BaseResponse;
 import org.cleverframe.fastdfs.utils.MetadataMapperUtils;
 
 import java.io.IOException;
@@ -13,7 +13,7 @@ import java.util.Set;
  * 作者：LiZW <br/>
  * 创建时间：2016/11/20 17:10 <br/>
  */
-public class GetMetadataResponse extends FastDFSResponse<Set<MateData>> {
+public class GetMetadataResponse extends BaseResponse<Set<MateData>> {
 
     /**
      * 解析反馈内容

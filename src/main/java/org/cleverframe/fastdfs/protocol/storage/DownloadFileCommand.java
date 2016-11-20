@@ -1,6 +1,6 @@
 package org.cleverframe.fastdfs.protocol.storage;
 
-import org.cleverframe.fastdfs.protocol.AbstractFastDFSCommand;
+import org.cleverframe.fastdfs.protocol.storage.callback.DownloadCallback;
 import org.cleverframe.fastdfs.protocol.storage.request.DownloadFileRequest;
 import org.cleverframe.fastdfs.protocol.storage.response.DownloadFileResponse;
 
@@ -9,7 +9,7 @@ import org.cleverframe.fastdfs.protocol.storage.response.DownloadFileResponse;
  * 作者：LiZW <br/>
  * 创建时间：2016/11/20 16:02 <br/>
  */
-public class DownloadFileCommand<T> extends AbstractFastDFSCommand<T> {
+public class DownloadFileCommand<T> extends StorageCommand<T> {
 
     /**
      * 下载文件

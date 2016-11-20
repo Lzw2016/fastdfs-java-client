@@ -1,7 +1,6 @@
 package org.cleverframe.fastdfs.protocol.tracker;
 
 import org.cleverframe.fastdfs.model.StorageState;
-import org.cleverframe.fastdfs.protocol.AbstractFastDFSCommand;
 import org.cleverframe.fastdfs.protocol.tracker.request.GetListStorageRequest;
 import org.cleverframe.fastdfs.protocol.tracker.response.GetListStorageResponse;
 
@@ -12,7 +11,7 @@ import java.util.List;
  * 作者：LiZW <br/>
  * 创建时间：2016/11/20 12:41 <br/>
  */
-public class GetStorageListCommand extends AbstractFastDFSCommand<List<StorageState>> {
+public class GetStorageListCommand extends TrackerCommand<List<StorageState>> {
 
     public GetStorageListCommand(String groupName, String storageIpAddr) {
         super.request = new GetListStorageRequest(groupName, storageIpAddr);

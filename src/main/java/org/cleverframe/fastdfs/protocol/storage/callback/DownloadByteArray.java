@@ -1,4 +1,4 @@
-package org.cleverframe.fastdfs.protocol.storage;
+package org.cleverframe.fastdfs.protocol.storage.callback;
 
 import org.apache.commons.io.IOUtils;
 
