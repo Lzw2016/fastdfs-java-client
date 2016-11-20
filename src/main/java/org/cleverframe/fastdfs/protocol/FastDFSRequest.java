@@ -20,7 +20,7 @@ public abstract class FastDFSRequest {
     /**
      * 发送文件流
      */
-    private InputStream inputFile;
+    protected InputStream inputFile;
 
     /**
      * 获取报文头(包内可见)
@@ -42,7 +42,7 @@ public abstract class FastDFSRequest {
     /**
      * 打包参数
      */
-    byte[] encodeParam(Charset charset) {
+    protected byte[] encodeParam(Charset charset) {
         return FastDFSParamMapperUtils.toByte(this, charset);
     }
 
