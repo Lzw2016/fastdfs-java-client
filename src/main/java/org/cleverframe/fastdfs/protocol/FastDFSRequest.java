@@ -58,7 +58,7 @@ public abstract class FastDFSRequest {
         return inputFile;
     }
 
-    long getFileSize() {
+    public long getFileSize() {
         return 0;
     }
 }
