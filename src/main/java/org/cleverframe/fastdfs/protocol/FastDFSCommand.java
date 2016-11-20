@@ -7,7 +7,7 @@ import org.cleverframe.fastdfs.conn.Connection;
  * 作者：LiZW <br/>
  * 创建时间：2016/11/20 0:57 <br/>
  */
-interface FastDFSCommand<T> {
+public interface FastDFSCommand<T> {
 
     /**
      * 执行FastDFS命令
