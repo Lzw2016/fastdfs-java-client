@@ -10,7 +10,7 @@ import java.util.Map;
  * 作者：LiZW <br/>
  * 创建时间：2016/11/20 1:22 <br/>
  */
-public class FastDFSServerException extends FastDFSException {
+public class FastDFSServerException extends FastDfsException {
     /**
      * 错误对照表
      */

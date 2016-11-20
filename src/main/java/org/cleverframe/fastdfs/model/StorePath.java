@@ -2,7 +2,7 @@ package org.cleverframe.fastdfs.model;
 
 import org.apache.commons.lang3.Validate;
 import org.cleverframe.fastdfs.constant.OtherConstants;
-import org.cleverframe.fastdfs.exception.FastDFSUnsupportStorePathException;
+import org.cleverframe.fastdfs.exception.FastDfsUnsupportStorePathException;
 import org.cleverframe.fastdfs.protocol.mapper.DynamicFieldType;
 import org.cleverframe.fastdfs.protocol.mapper.FastDFSColumn;
 
@@ -67,7 +67,7 @@ public class StorePath implements Serializable {
         String groupAndPath = filePath.substring(groupStartPos);
         int pos = groupAndPath.indexOf(SPLIT_GROUP_NAME_AND_FILENAME_SEPERATOR);
         if ((pos <= 0) || (pos == groupAndPath.length() - 1)) {
-            throw new FastDFSUnsupportStorePathException("解析文件路径错误,有效的路径样式为(group/path) 而当前解析路径为".concat(filePath));
+            throw new FastDfsUnsupportStorePathException("解析文件路径错误,有效的路径样式为(group/path) 而当前解析路径为".concat(filePath));
         }
         String group = groupAndPath.substring(0, pos);
         String path = groupAndPath.substring(pos + 1);
@@ -80,7 +80,7 @@ public class StorePath implements Serializable {
     private static int getGroupStartPos(String filePath) {
         int pos = filePath.indexOf(SPLIT_GROUP_NAME);
         if ((pos == -1)) {
-            throw new FastDFSUnsupportStorePathException("解析文件路径错误,被解析路径url没有group,当前解析路径为".concat(filePath));
+            throw new FastDfsUnsupportStorePathException("解析文件路径错误,被解析路径url没有group,当前解析路径为".concat(filePath));
         }
         return pos;
     }

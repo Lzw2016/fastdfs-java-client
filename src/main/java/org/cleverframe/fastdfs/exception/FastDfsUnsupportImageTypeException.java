@@ -5,8 +5,8 @@ package org.cleverframe.fastdfs.exception;
  * 作者：LiZW <br/>
  * 创建时间：2016/11/20 11:46 <br/>
  */
-public class FastDFSUnsupportImageTypeException extends FastDFSException {
-    public FastDFSUnsupportImageTypeException(String message) {
+public class FastDfsUnsupportImageTypeException extends FastDfsException {
+    public FastDfsUnsupportImageTypeException(String message) {
         super(message);
     }
 }

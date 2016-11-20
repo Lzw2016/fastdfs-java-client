@@ -1,7 +1,7 @@
 package org.cleverframe.fastdfs.pool;
 
 import org.apache.commons.lang3.StringUtils;
-import org.cleverframe.fastdfs.exception.FastDFSUnavailableException;
+import org.cleverframe.fastdfs.exception.FastDfsUnavailableException;
 
 import java.net.InetSocketAddress;
 import java.util.*;
@@ -90,7 +90,7 @@ public class TrackerLocator {
                 return holder.getAddress();
             }
         }
-        throw new FastDFSUnavailableException("找不到可用的 Tracker Server " + getTrackerAddressConfigString());
+        throw new FastDfsUnavailableException("找不到可用的 Tracker Server " + getTrackerAddressConfigString());
     }
 
     /**

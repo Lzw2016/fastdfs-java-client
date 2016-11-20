@@ -5,16 +5,16 @@ package org.cleverframe.fastdfs.exception;
  * 作者：LiZW <br/>
  * 创建时间：2016/11/20 11:44 <br/>
  */
-public class FastDFSIOException extends FastDFSException {
-    public FastDFSIOException(Throwable cause) {
+public class FastDfsIOException extends FastDfsException {
+    public FastDfsIOException(Throwable cause) {
         super("客户端连接服务端出现了io异常", cause);
     }
 
-    public FastDFSIOException(String messge, Throwable cause) {
+    public FastDfsIOException(String messge, Throwable cause) {
         super("客户端连接服务端出现了io异常:" + messge, cause);
     }
 
-    public FastDFSIOException(String message) {
+    public FastDfsIOException(String message) {
         super(message);
     }
 }

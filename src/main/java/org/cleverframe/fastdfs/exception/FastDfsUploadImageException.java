@@ -5,12 +5,12 @@ package org.cleverframe.fastdfs.exception;
  * 作者：LiZW <br/>
  * 创建时间：2016/11/20 11:47 <br/>
  */
-public class FastDFSUploadImageException extends FastDFSException {
-    protected FastDFSUploadImageException(String message) {
+public class FastDfsUploadImageException extends FastDfsException {
+    protected FastDfsUploadImageException(String message) {
         super(message);
     }
 
-    public FastDFSUploadImageException(String message, Throwable cause) {
+    public FastDfsUploadImageException(String message, Throwable cause) {
         super(message, cause);
     }
 }

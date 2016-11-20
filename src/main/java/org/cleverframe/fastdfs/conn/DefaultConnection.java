@@ -3,7 +3,7 @@ package org.cleverframe.fastdfs.conn;
 import org.apache.commons.io.IOUtils;
 import org.cleverframe.fastdfs.constant.CmdConstants;
 import org.cleverframe.fastdfs.constant.OtherConstants;
-import org.cleverframe.fastdfs.exception.FastDFSConnectException;
+import org.cleverframe.fastdfs.exception.FastDfsConnectException;
 import org.cleverframe.fastdfs.utils.BytesUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,7 +54,7 @@ public class DefaultConnection implements Connection {
             socket.connect(address, connectTimeout);
             logger.debug("成功连接到服务器:{}", address);
         } catch (IOException e) {
-            throw new FastDFSConnectException("不能连接到服务器:" + address, e);
+            throw new FastDfsConnectException("不能连接到服务器:" + address, e);
         }
     }
 

@@ -1,7 +1,7 @@
 package org.cleverframe.fastdfs.pool;
 
 import org.cleverframe.fastdfs.conn.Connection;
-import org.cleverframe.fastdfs.exception.FastDFSConnectException;
+import org.cleverframe.fastdfs.exception.FastDfsConnectException;
 import org.cleverframe.fastdfs.protocol.FastDFSCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,7 +41,7 @@ public class TrackerConnectionManager extends ConnectionManager {
     /**
      * 构造函数
      */
-    public TrackerConnectionManager(FastDFSConnectionPool pool) {
+    public TrackerConnectionManager(FastDfsConnectionPool pool) {
         super(pool);
     }
 
@@ -68,7 +68,7 @@ public class TrackerConnectionManager extends ConnectionManager {
             logger.debug("获取到Tracker连接地址{}", address);
             conn = getConnection(address);
             trackerLocator.setActive(address);
-        } catch (FastDFSConnectException e) {
+        } catch (FastDfsConnectException e) {
             trackerLocator.setInActive(address);
             throw e;
         } catch (Exception e) {

@@ -1,7 +1,7 @@
 package org.cleverframe.fastdfs.protocol;
 
 import org.cleverframe.fastdfs.conn.Connection;
-import org.cleverframe.fastdfs.exception.FastDFSIOException;
+import org.cleverframe.fastdfs.exception.FastDfsIOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,12 +39,12 @@ public class AbstractFastDFSCommand<T> implements FastDFSCommand<T> {
         try {
             send(conn.getOutputStream(), conn.getCharset());
         } catch (IOException e) {
-            throw new FastDFSIOException("Socket IO异常 发送消息异常", e);
+            throw new FastDfsIOException("Socket IO异常 发送消息异常", e);
         }
         try {
             return receive(conn.getInputStream(), conn.getCharset());
         } catch (IOException e) {
-            throw new FastDFSIOException("Socket IO异常 接收消息异常", e);
+            throw new FastDfsIOException("Socket IO异常 接收消息异常", e);
         }
     }
 

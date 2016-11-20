@@ -2,7 +2,7 @@ package org.cleverframe.fastdfs.protocol.mapper;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.cleverframe.fastdfs.constant.OtherConstants;
-import org.cleverframe.fastdfs.exception.FastDFSColumnMapException;
+import org.cleverframe.fastdfs.exception.FastDfsColumnMapException;
 import org.cleverframe.fastdfs.model.MateData;
 import org.cleverframe.fastdfs.utils.BytesUtil;
 import org.cleverframe.fastdfs.utils.MetadataMapperUtils;
@@ -86,7 +86,7 @@ public class FieldMateData {
         } else if (Set.class == field.getType()) {
             return 0;
         }
-        throw new FastDFSColumnMapException(field.getName() + "获取Field大小时未识别的FastDFSColumn类型" + field.getType());
+        throw new FastDfsColumnMapException(field.getName() + "获取Field大小时未识别的FastDFSColumn类型" + field.getType());
     }
 
     /**
@@ -109,7 +109,7 @@ public class FieldMateData {
         } else if (boolean.class == field.getType()) {
             return bs[offsize] != 0;
         }
-        throw new FastDFSColumnMapException(field.getName() + "获取值时未识别的FdfsColumn类型" + field.getType());
+        throw new FastDfsColumnMapException(field.getName() + "获取值时未识别的FdfsColumn类型" + field.getType());
     }
 
     /**
@@ -139,15 +139,15 @@ public class FieldMateData {
         } else if (int.class.equals(field.getType())) {
             return BytesUtil.long2buff((Integer) value);
         } else if (Date.class.equals(field.getType())) {
-            throw new FastDFSColumnMapException("Date 还不支持");
+            throw new FastDfsColumnMapException("Date 还不支持");
         } else if (byte.class.equals(field.getType())) {
             byte[] result = new byte[1];
             result[0] = (Byte) value;
             return result;
         } else if (boolean.class.equals(field.getType())) {
-            throw new FastDFSColumnMapException("boolean 还不支持");
+            throw new FastDfsColumnMapException("boolean 还不支持");
         }
-        throw new FastDFSColumnMapException("将属性值转换为byte时未识别的FdfsColumn类型" + field.getName());
+        throw new FastDfsColumnMapException("将属性值转换为byte时未识别的FdfsColumn类型" + field.getName());
     }
 
     /**

@@ -1,6 +1,6 @@
 package org.cleverframe.fastdfs.protocol.mapper;
 
-import org.cleverframe.fastdfs.exception.FastDFSColumnMapException;
+import org.cleverframe.fastdfs.exception.FastDfsColumnMapException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -132,7 +132,7 @@ public class ObjectMateData {
      */
     public int getFieldsFixTotalSize() {
         if (hasDynamicField()) {
-            throw new FastDFSColumnMapException(className + "类中有Dynamic字段, 不支持操作getFieldsTotalSize");
+            throw new FastDfsColumnMapException(className + "类中有Dynamic字段, 不支持操作getFieldsTotalSize");
         }
         return fieldsTotalSize;
     }
@@ -157,13 +157,13 @@ public class ObjectMateData {
             return fieldsTotalSize + dynamicFieldSize;
         } catch (NoSuchMethodException ie) {
             logger.debug("Cannot invoke get methed: ", ie);
-            throw new FastDFSColumnMapException(ie);
+            throw new FastDfsColumnMapException(ie);
         } catch (IllegalAccessException iae) {
             logger.debug("Illegal access: ", iae);
-            throw new FastDFSColumnMapException(iae);
+            throw new FastDfsColumnMapException(iae);
         } catch (InvocationTargetException ite) {
             logger.debug("Cannot invoke method: ", ite);
-            throw new FastDFSColumnMapException(ite);
+            throw new FastDfsColumnMapException(ite);
         }
     }
 

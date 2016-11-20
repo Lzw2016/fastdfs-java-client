@@ -1,7 +1,7 @@
 package org.cleverframe.fastdfs.pool;
 
 import org.cleverframe.fastdfs.conn.Connection;
-import org.cleverframe.fastdfs.exception.FastDFSException;
+import org.cleverframe.fastdfs.exception.FastDfsException;
 import org.cleverframe.fastdfs.protocol.FastDFSCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +23,7 @@ public class ConnectionManager {
     /**
      * 连接池
      */
-    private FastDFSConnectionPool pool;
+    private FastDfsConnectionPool pool;
 
     /**
      * 构造函数
@@ -37,7 +37,7 @@ public class ConnectionManager {
      *
      * @param pool 连接池
      */
-    public ConnectionManager(FastDFSConnectionPool pool) {
+    public ConnectionManager(FastDfsConnectionPool pool) {
         super();
         this.pool = pool;
     }
@@ -53,7 +53,7 @@ public class ConnectionManager {
         try {
             // 获取连接
             conn = pool.borrowObject(address);
-        } catch (FastDFSException e) {
+        } catch (FastDfsException e) {
             throw e;
         } catch (Exception e) {
             throw new RuntimeException("从连接池中获取连接异常", e);
@@ -88,7 +88,7 @@ public class ConnectionManager {
             // 发送请求
             logger.debug("对地址[{}] 发送请求[{}]", address, command.getClass().getSimpleName());
             return command.execute(conn);
-        } catch (FastDFSException e) {
+        } catch (FastDfsException e) {
             throw e;
         } catch (Exception e) {
             throw new RuntimeException("发送FastDFS请求异常", e);
@@ -123,11 +123,11 @@ public class ConnectionManager {
         }
     }
 
-    public FastDFSConnectionPool getPool() {
+    public FastDfsConnectionPool getPool() {
         return pool;
     }
 
-    public void setPool(FastDFSConnectionPool pool) {
+    public void setPool(FastDfsConnectionPool pool) {
         this.pool = pool;
     }
 }

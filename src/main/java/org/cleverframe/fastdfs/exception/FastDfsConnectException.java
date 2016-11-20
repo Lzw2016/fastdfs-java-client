@@ -5,8 +5,8 @@ package org.cleverframe.fastdfs.exception;
  * 作者：LiZW <br/>
  * 创建时间：2016/11/20 11:41 <br/>
  */
-public class FastDFSConnectException extends FastDFSUnavailableException {
-    public FastDFSConnectException(String message, Throwable t) {
+public class FastDfsConnectException extends FastDfsUnavailableException {
+    public FastDfsConnectException(String message, Throwable t) {
         super(message, t);
     }
 }

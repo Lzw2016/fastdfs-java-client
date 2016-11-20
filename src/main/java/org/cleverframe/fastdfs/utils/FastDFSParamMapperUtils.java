@@ -1,7 +1,7 @@
 package org.cleverframe.fastdfs.utils;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.cleverframe.fastdfs.exception.FastDFSColumnMapException;
+import org.cleverframe.fastdfs.exception.FastDfsColumnMapException;
 import org.cleverframe.fastdfs.protocol.mapper.FieldMateData;
 import org.cleverframe.fastdfs.protocol.mapper.ObjectMateData;
 import org.slf4j.Logger;
@@ -46,13 +46,13 @@ public class FastDFSParamMapperUtils {
             return mapByIndex(content, genericType, objectMap, charset);
         } catch (InstantiationException ie) {
             logger.debug("Cannot instantiate: ", ie);
-            throw new FastDFSColumnMapException(ie);
+            throw new FastDfsColumnMapException(ie);
         } catch (IllegalAccessException iae) {
             logger.debug("Illegal access: ", iae);
-            throw new FastDFSColumnMapException(iae);
+            throw new FastDfsColumnMapException(iae);
         } catch (InvocationTargetException ite) {
             logger.debug("Cannot invoke method: ", ite);
-            throw new FastDFSColumnMapException(ite);
+            throw new FastDfsColumnMapException(ite);
         }
     }
 
@@ -91,13 +91,13 @@ public class FastDFSParamMapperUtils {
             return convertFieldToByte(objectMap, object, charset);
         } catch (NoSuchMethodException ie) {
             logger.debug("Cannot invoke get methed: ", ie);
-            throw new FastDFSColumnMapException(ie);
+            throw new FastDfsColumnMapException(ie);
         } catch (IllegalAccessException iae) {
             logger.debug("Illegal access: ", iae);
-            throw new FastDFSColumnMapException(iae);
+            throw new FastDfsColumnMapException(iae);
         } catch (InvocationTargetException ite) {
             logger.debug("Cannot invoke method: ", ite);
-            throw new FastDFSColumnMapException(ite);
+            throw new FastDfsColumnMapException(ite);
         }
     }
 

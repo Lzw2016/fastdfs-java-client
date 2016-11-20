@@ -13,18 +13,18 @@ import java.net.InetSocketAddress;
  * 作者：LiZW <br/>
  * 创建时间：2016/11/20 19:28 <br/>
  */
-public class FastDFSConnectionPool extends GenericKeyedObjectPool<InetSocketAddress, Connection> {
+public class FastDfsConnectionPool extends GenericKeyedObjectPool<InetSocketAddress, Connection> {
     /**
      * 默认构造函数
      */
-    public FastDFSConnectionPool(KeyedPooledObjectFactory<InetSocketAddress, Connection> factory, GenericKeyedObjectPoolConfig config) {
+    public FastDfsConnectionPool(KeyedPooledObjectFactory<InetSocketAddress, Connection> factory, GenericKeyedObjectPoolConfig config) {
         super(factory, config);
     }
 
     /**
      * 默认构造函数
      */
-    public FastDFSConnectionPool(KeyedPooledObjectFactory<InetSocketAddress, Connection> factory) {
+    public FastDfsConnectionPool(KeyedPooledObjectFactory<InetSocketAddress, Connection> factory) {
         super(factory);
     }
 }
