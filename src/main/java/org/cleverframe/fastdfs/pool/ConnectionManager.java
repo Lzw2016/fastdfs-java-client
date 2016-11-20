@@ -3,7 +3,7 @@ package org.cleverframe.fastdfs.pool;
 import org.cleverframe.fastdfs.conn.Connection;
 import org.cleverframe.fastdfs.exception.FastDfsConnectException;
 import org.cleverframe.fastdfs.exception.FastDfsException;
-import org.cleverframe.fastdfs.protocol.BaseCommand;
+import org.cleverframe.fastdfs.protocol.tracker.TrackerCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -69,7 +69,7 @@ public class ConnectionManager {
      * @param command FastDFS命令执行对象
      * @return 返回请求响应对象
      */
-    public <T> T execute(BaseCommand<T> command) {
+    public <T> T execute(TrackerCommand<T> command) {
         Connection conn;
         InetSocketAddress address = null;
         // 获取连接
