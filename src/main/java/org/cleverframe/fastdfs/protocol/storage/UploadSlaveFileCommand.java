@@ -36,7 +36,7 @@ public class UploadSlaveFileCommand extends AbstractFastDFSCommand<StorePath> {
      *
      * @param inputStream    输入流
      * @param fileSize       文件大小
-     * @param masterFilename 主文件名称
+     * @param masterFilename 主文件名称(路径)
      * @param prefixName     从文件前缀
      * @param fileExtName    文件扩展名
      */
