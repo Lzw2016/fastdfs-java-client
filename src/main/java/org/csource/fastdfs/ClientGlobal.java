@@ -23,7 +23,7 @@ import java.net.Socket;
  * @version Version 1.11
  */
 public class ClientGlobal {
-    public static int g_connect_timeout; //millisecond
+    public static int g_connect_timeout; //millisecond(毫秒)
     public static int g_network_timeout; //millisecond
     public static String g_charset;
     public static int g_tracker_http_port;
