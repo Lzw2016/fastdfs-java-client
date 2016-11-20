@@ -1,7 +1,7 @@
 package org.cleverframe.fastdfs.testbase;
 
 import org.cleverframe.fastdfs.conn.Connection;
-import org.cleverframe.fastdfs.conn.DefaultConnection;
+import org.cleverframe.fastdfs.conn.SocketConnection;
 
 import java.net.InetSocketAddress;
 import java.nio.charset.Charset;
@@ -17,6 +17,6 @@ public class GetStorageConnection {
     private static final Charset charset = Charset.forName("UTF-8");
 
     public static Connection getDefaultConnection() {
-        return new DefaultConnection(address, soTimeout, connectTimeout, charset);
+        return new SocketConnection(address, soTimeout, connectTimeout, charset);
     }
 }

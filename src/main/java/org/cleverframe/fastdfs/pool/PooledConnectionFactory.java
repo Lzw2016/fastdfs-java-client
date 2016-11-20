@@ -4,7 +4,7 @@ import org.apache.commons.pool2.BaseKeyedPooledObjectFactory;
 import org.apache.commons.pool2.PooledObject;
 import org.apache.commons.pool2.impl.DefaultPooledObject;
 import org.cleverframe.fastdfs.conn.Connection;
-import org.cleverframe.fastdfs.conn.DefaultConnection;
+import org.cleverframe.fastdfs.conn.SocketConnection;
 
 import java.net.InetSocketAddress;
 import java.nio.charset.Charset;
@@ -49,7 +49,7 @@ public class PooledConnectionFactory extends BaseKeyedPooledObjectFactory<InetSo
         if (null == charset) {
             charset = Charset.forName(charsetName);
         }
-        return new DefaultConnection(address, soTimeout, connectTimeout, charset);
+        return new SocketConnection(address, soTimeout, connectTimeout, charset);
     }
 
     /**

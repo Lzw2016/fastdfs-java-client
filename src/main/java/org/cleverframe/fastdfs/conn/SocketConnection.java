@@ -22,11 +22,11 @@ import java.util.Arrays;
  * 作者：LiZW <br/>
  * 创建时间：2016/11/20 12:32 <br/>
  */
-public class DefaultConnection implements Connection {
+public class SocketConnection implements Connection {
     /**
      * 日志
      */
-    private static final Logger logger = LoggerFactory.getLogger(DefaultConnection.class);
+    private static final Logger logger = LoggerFactory.getLogger(SocketConnection.class);
 
     /**
      * 封装socket
@@ -45,7 +45,7 @@ public class DefaultConnection implements Connection {
      * @param soTimeout      soTimeout
      * @param connectTimeout 设置连接超时
      */
-    public DefaultConnection(InetSocketAddress address, int soTimeout, int connectTimeout, Charset charset) {
+    public SocketConnection(InetSocketAddress address, int soTimeout, int connectTimeout, Charset charset) {
         try {
             socket = new Socket();
             socket.setSoTimeout(soTimeout);
