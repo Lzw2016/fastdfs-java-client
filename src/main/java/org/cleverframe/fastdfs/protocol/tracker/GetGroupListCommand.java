@@ -18,5 +18,4 @@ public class GetGroupListCommand extends AbstractFastDFSCommand<List<GroupState>
         super.request = new GetGroupListRequest();
         super.response = new GetGroupListResponse();
     }
-
 }
