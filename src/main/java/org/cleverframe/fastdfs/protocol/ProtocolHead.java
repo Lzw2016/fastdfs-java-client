@@ -2,7 +2,7 @@ package org.cleverframe.fastdfs.protocol;
 
 import org.cleverframe.fastdfs.constant.CmdConstants;
 import org.cleverframe.fastdfs.constant.OtherConstants;
-import org.cleverframe.fastdfs.exception.FastDFSServerException;
+import org.cleverframe.fastdfs.exception.FastDfsServerException;
 import org.cleverframe.fastdfs.utils.BytesUtil;
 
 import java.io.IOException;
@@ -105,7 +105,7 @@ public class ProtocolHead {
         }
         // 获取处理错误状态
         if (status != 0) {
-            throw FastDFSServerException.byCode(status);
+            throw FastDfsServerException.byCode(status);
         }
         if (contentLength < 0) {
             throw new IOException("接收内容长度小于0: " + contentLength + " < 0!");

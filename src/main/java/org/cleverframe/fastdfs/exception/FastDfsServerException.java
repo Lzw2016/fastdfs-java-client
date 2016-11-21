@@ -10,7 +10,7 @@ import java.util.Map;
  * 作者：LiZW <br/>
  * 创建时间：2016/11/20 1:22 <br/>
  */
-public class FastDFSServerException extends FastDfsException {
+public class FastDfsServerException extends FastDfsException {
     /**
      * 错误对照表
      */
@@ -30,18 +30,18 @@ public class FastDFSServerException extends FastDfsException {
 
     private int errorCode;
 
-    private FastDFSServerException(int errorCode, String message) {
+    private FastDfsServerException(int errorCode, String message) {
         super(message);
         this.errorCode = errorCode;
     }
 
-    public static FastDFSServerException byCode(int errorCode) {
+    public static FastDfsServerException byCode(int errorCode) {
         String message = CODE_MESSAGE_MAPPING.get(errorCode);
         if (message == null) {
             message = "未知错误";
         }
         message = "错误码：" + errorCode + "，错误信息：" + message;
-        return new FastDFSServerException(errorCode, message);
+        return new FastDfsServerException(errorCode, message);
     }
 
     public int getErrorCode() {

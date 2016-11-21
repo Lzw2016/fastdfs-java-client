@@ -24,7 +24,7 @@ public interface TrackerClient {
      * 根据组名称获取一个Group下面的一个存储节点名称
      *
      * @param groupName 组名称
-     * @return 存储节点信息
+     * @return 存储节点信息, 不存在返回null
      */
     StorageNode getStorageNode(String groupName);
 
@@ -52,14 +52,6 @@ public interface TrackerClient {
      * @return 存储组状态集合，不存在返回空集合
      */
     List<GroupState> getGroupStates();
-
-    /**
-     * 根据组名称获取存储组的状态
-     *
-     * @param groupName 组名称
-     * @return 存储组状态，不存在返回null
-     */
-    StorageState getGroupState(String groupName);
 
     /**
      * 获取一个存储组里的所有存储服务节点状态信息
