@@ -28,14 +28,12 @@ public class DefaultTrackerClientTest {
      */
     private static final Logger logger = LoggerFactory.getLogger(DefaultTrackerClientTest.class);
 
-    private static PooledConnectionFactory pooledConnectionFactory;
     private static ConnectionPool connectionPool;
-    private static DefaultCommandExecutor commandExecutor;
-    private static DefaultTrackerClient trackerClient;
+    private static TrackerClient trackerClient;
 
     @Before
     public void init() {
-        pooledConnectionFactory = new PooledConnectionFactory(500, 500);
+        PooledConnectionFactory pooledConnectionFactory = new PooledConnectionFactory(500, 500);
         GenericKeyedObjectPoolConfig conf = new GenericKeyedObjectPoolConfig();
         conf.setMaxTotal(200);
         conf.setMaxTotalPerKey(200);
@@ -43,7 +41,7 @@ public class DefaultTrackerClientTest {
         connectionPool = new ConnectionPool(pooledConnectionFactory, conf);
         Set<String> trackerSet = new HashSet<String>();
         trackerSet.add("192.168.10.128:22122");
-        commandExecutor = new DefaultCommandExecutor(trackerSet, connectionPool);
+        DefaultCommandExecutor commandExecutor = new DefaultCommandExecutor(trackerSet, connectionPool);
         trackerClient = new DefaultTrackerClient(commandExecutor);
     }
 
@@ -96,8 +94,17 @@ public class DefaultTrackerClientTest {
     }
 
     @Test
-    public void Test() {
-//        trackerClient. ;
-//        logger.info("#####===== " + storageNode);
+    public void getStorageStateTest() {
+        StorageState storageState = trackerClient.getStorageState("group1", "192.168.10.128");
+        logger.info("#####===== " + storageState);
+
+        storageState = trackerClient.getStorageState("group1", "192.168.56.139");
+        logger.info("#####===== " + storageState);
+    }
+
+    @Test
+    public void deleteStorageTest() {
+        boolean flag = trackerClient.deleteStorage("group1", "192.168.10.128");
+        logger.info("#####===== " + flag);
     }
 }
