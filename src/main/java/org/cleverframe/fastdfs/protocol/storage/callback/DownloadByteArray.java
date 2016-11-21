@@ -1,6 +1,7 @@
 package org.cleverframe.fastdfs.protocol.storage.callback;
 
-import org.apache.commons.io.IOUtils;
+
+import org.cleverframe.fastdfs.utils.IOUtils;
 
 import java.io.IOException;
 import java.io.InputStream;

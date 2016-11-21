@@ -1,10 +1,10 @@
 package org.cleverframe.fastdfs.conn;
 
-import org.apache.commons.io.IOUtils;
 import org.cleverframe.fastdfs.constant.CmdConstants;
 import org.cleverframe.fastdfs.constant.OtherConstants;
 import org.cleverframe.fastdfs.exception.FastDfsConnectException;
 import org.cleverframe.fastdfs.utils.BytesUtil;
+import org.cleverframe.fastdfs.utils.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

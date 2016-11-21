@@ -1,7 +1,7 @@
 package org.cleverframe.fastdfs.pool;
 
-import org.apache.commons.lang3.StringUtils;
 import org.cleverframe.fastdfs.exception.FastDfsUnavailableException;
+import org.cleverframe.fastdfs.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

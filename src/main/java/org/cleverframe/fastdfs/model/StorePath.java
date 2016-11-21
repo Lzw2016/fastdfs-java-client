@@ -1,10 +1,10 @@
 package org.cleverframe.fastdfs.model;
 
-import org.apache.commons.lang3.Validate;
 import org.cleverframe.fastdfs.constant.OtherConstants;
 import org.cleverframe.fastdfs.exception.FastDfsUnsupportStorePathException;
 import org.cleverframe.fastdfs.mapper.DynamicFieldType;
 import org.cleverframe.fastdfs.mapper.FastDFSColumn;
+import org.cleverframe.fastdfs.utils.Validate;
 
 import java.io.Serializable;
 

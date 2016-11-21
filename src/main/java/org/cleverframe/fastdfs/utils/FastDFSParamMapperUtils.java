@@ -1,6 +1,5 @@
 package org.cleverframe.fastdfs.utils;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.cleverframe.fastdfs.exception.FastDfsColumnMapException;
 import org.cleverframe.fastdfs.mapper.FieldMateData;
 import org.cleverframe.fastdfs.mapper.ObjectMateData;
@@ -79,7 +78,7 @@ public class FastDFSParamMapperUtils {
             if (logger.isTraceEnabled()) {
                 logger.trace("设置值是 " + field + field.getValue(content, charset));
             }
-            BeanUtils.setProperty(obj, field.getFieldName(), field.getValue(content, charset));
+            ReflectionsUtils.setFieldValue(obj, field.getFieldName(), field.getValue(content, charset));
         }
         return obj;
     }

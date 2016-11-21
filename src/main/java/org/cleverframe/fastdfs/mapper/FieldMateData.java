@@ -1,11 +1,11 @@
 package org.cleverframe.fastdfs.mapper;
 
-import org.apache.commons.beanutils.PropertyUtils;
 import org.cleverframe.fastdfs.constant.OtherConstants;
 import org.cleverframe.fastdfs.exception.FastDfsColumnMapException;
 import org.cleverframe.fastdfs.model.MateData;
 import org.cleverframe.fastdfs.utils.BytesUtil;
 import org.cleverframe.fastdfs.utils.MetadataMapperUtils;
+import org.cleverframe.fastdfs.utils.ReflectionsUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -171,7 +171,7 @@ public class FieldMateData {
      * 获取单元对应值
      */
     private Object getFieldValue(Object bean) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
-        return PropertyUtils.getProperty(bean, field.getName());
+        return ReflectionsUtils.getFieldValue(bean, field.getName());
     }
 
     /**
@@ -180,7 +180,7 @@ public class FieldMateData {
     @SuppressWarnings("unchecked")
     int getDynamicFieldByteSize(Object bean, Charset charset)
             throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
-        Object value = PropertyUtils.getProperty(bean, field.getName());
+        Object value = ReflectionsUtils.getFieldValue(bean, field.getName());
         if (null == value) {
             return 0;
         }

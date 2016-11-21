@@ -1,6 +1,5 @@
 package org.cleverframe.fastdfs.protocol.storage.request;
 
-import org.apache.commons.lang3.Validate;
 import org.cleverframe.fastdfs.constant.CmdConstants;
 import org.cleverframe.fastdfs.constant.OtherConstants;
 import org.cleverframe.fastdfs.model.MateData;
@@ -10,6 +9,7 @@ import org.cleverframe.fastdfs.mapper.DynamicFieldType;
 import org.cleverframe.fastdfs.mapper.FastDFSColumn;
 import org.cleverframe.fastdfs.protocol.storage.enums.StorageMetadataSetType;
 import org.cleverframe.fastdfs.utils.MetadataMapperUtils;
+import org.cleverframe.fastdfs.utils.Validate;
 
 import java.nio.charset.Charset;
 import java.util.Set;

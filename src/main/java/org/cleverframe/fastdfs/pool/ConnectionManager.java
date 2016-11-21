@@ -64,9 +64,9 @@ public class ConnectionManager {
     }
 
     /**
-     * 获取连接并执行交易
+     * 在Tracker Server上执行命令
      *
-     * @param command FastDFS命令执行对象
+     * @param command 在Tracker Server命令对象
      * @return 返回请求响应对象
      */
     public <T> T execute(TrackerCommand<T> command) {

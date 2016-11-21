@@ -1,6 +1,5 @@
 package org.cleverframe.fastdfs.utils;
 
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
