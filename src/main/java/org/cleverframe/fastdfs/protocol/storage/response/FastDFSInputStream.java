@@ -1,4 +1,4 @@
-package org.cleverframe.fastdfs.protocol.storage;
+package org.cleverframe.fastdfs.protocol.storage.response;
 
 import java.io.IOException;
 import java.io.InputStream;

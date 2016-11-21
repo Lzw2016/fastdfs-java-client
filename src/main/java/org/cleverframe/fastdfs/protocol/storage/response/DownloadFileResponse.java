@@ -2,7 +2,6 @@ package org.cleverframe.fastdfs.protocol.storage.response;
 
 import org.cleverframe.fastdfs.protocol.BaseResponse;
 import org.cleverframe.fastdfs.protocol.storage.callback.DownloadCallback;
-import org.cleverframe.fastdfs.protocol.storage.FastDFSInputStream;
 
 import java.io.IOException;
 import java.io.InputStream;
