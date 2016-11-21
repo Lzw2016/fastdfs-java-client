@@ -1,6 +1,6 @@
 package org.cleverframe.fastdfs.client;
 
-import org.cleverframe.fastdfs.conn.DefaultCommandExecutor;
+import org.cleverframe.fastdfs.conn.CommandExecutor;
 import org.cleverframe.fastdfs.exception.FastDfsException;
 import org.cleverframe.fastdfs.model.GroupState;
 import org.cleverframe.fastdfs.model.StorageNode;
@@ -25,16 +25,16 @@ public class DefaultTrackerClient implements TrackerClient {
      */
     private static final Logger logger = LoggerFactory.getLogger(DefaultTrackerClient.class);
 
-    private DefaultCommandExecutor defaultCommandExecutor;
+    private CommandExecutor commandExecutor;
 
-    public DefaultTrackerClient(DefaultCommandExecutor defaultCommandExecutor) {
-        this.defaultCommandExecutor = defaultCommandExecutor;
+    public DefaultTrackerClient(CommandExecutor commandExecutor) {
+        this.commandExecutor = commandExecutor;
     }
 
     @Override
     public StorageNode getStorageNode() {
         GetStorageNodeCommand command = new GetStorageNodeCommand();
-        return defaultCommandExecutor.execute(command);
+        return commandExecutor.execute(command);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class DefaultTrackerClient implements TrackerClient {
         StorageNode storageNode = null;
         GetStorageNodeCommand command = new GetStorageNodeCommand(groupName);
         try {
-            storageNode = defaultCommandExecutor.execute(command);
+            storageNode = commandExecutor.execute(command);
         } catch (FastDfsException e) {
             logger.error("存储节点不存在 groupName=[" + groupName + "]", e);
         }
@@ -52,33 +52,33 @@ public class DefaultTrackerClient implements TrackerClient {
     @Override
     public StorageNodeInfo getFetchStorage(String groupName, String filename) {
         GetFetchStorageCommand command = new GetFetchStorageCommand(groupName, filename, false);
-        return defaultCommandExecutor.execute(command);
+        return commandExecutor.execute(command);
     }
 
     @Override
     public StorageNodeInfo getFetchStorageAndUpdate(String groupName, String filename) {
         GetFetchStorageCommand command = new GetFetchStorageCommand(groupName, filename, true);
-        return defaultCommandExecutor.execute(command);
+        return commandExecutor.execute(command);
     }
 
     @Override
     public List<GroupState> getGroupStates() {
         GetGroupListCommand command = new GetGroupListCommand();
-        List<GroupState> result = defaultCommandExecutor.execute(command);
+        List<GroupState> result = commandExecutor.execute(command);
         return result != null ? result : new ArrayList<GroupState>();
     }
 
     @Override
     public List<StorageState> getStorageStates(String groupName) {
         GetStorageListCommand command = new GetStorageListCommand(groupName);
-        List<StorageState> result = defaultCommandExecutor.execute(command);
+        List<StorageState> result = commandExecutor.execute(command);
         return result != null ? result : new ArrayList<StorageState>();
     }
 
     @Override
     public StorageState getStorageState(String groupName, String storageIp) {
         GetStorageListCommand command = new GetStorageListCommand(groupName, storageIp);
-        List<StorageState> result = defaultCommandExecutor.execute(command);
+        List<StorageState> result = commandExecutor.execute(command);
         if (result != null && result.size() > 1) {
             logger.warn("应该返回一条数据, 但是现在返回了{}条, 只取第一条", result.size());
         }
@@ -89,7 +89,7 @@ public class DefaultTrackerClient implements TrackerClient {
     public boolean deleteStorage(String groupName, String storageIp) {
         DeleteStorageCommand command = new DeleteStorageCommand(groupName, storageIp);
         try {
-            defaultCommandExecutor.execute(command);
+            commandExecutor.execute(command);
         } catch (Throwable e) {
             logger.error("踢出存储服务器失败, groupName=[" + groupName + "], storageIp=[" + storageIp + "]", e);
             return false;
@@ -97,11 +97,11 @@ public class DefaultTrackerClient implements TrackerClient {
         return true;
     }
 
-    public DefaultCommandExecutor getDefaultCommandExecutor() {
-        return defaultCommandExecutor;
+    public CommandExecutor getCommandExecutor() {
+        return commandExecutor;
     }
 
-    public void setDefaultCommandExecutor(DefaultCommandExecutor defaultCommandExecutor) {
-        this.defaultCommandExecutor = defaultCommandExecutor;
+    public void setCommandExecutor(CommandExecutor commandExecutor) {
+        this.commandExecutor = commandExecutor;
     }
 }

@@ -50,33 +50,44 @@ public class DefaultCommandExecutor implements CommandExecutor {
 
     @Override
     public <T> T execute(TrackerCommand<T> command) {
-        return executeCmd(command);
-    }
-
-    @Override
-    public <T> T execute(StorageCommand<T> command) {
-        return executeCmd(command);
-    }
-
-    /**
-     * 在Server上执行命令
-     *
-     * @param command Server命令对象
-     * @return 返回请求响应对象
-     */
-    private <T> T executeCmd(AbstractCommand<T> command) {
-        // 获取Tracker服务器地址(使用轮询)
+        Connection conn;
         InetSocketAddress address;
         try {
+            // 获取Tracker服务器地址(使用轮询)
             address = trackerLocator.getTrackerAddress();
+            // 从连接池中获取连接
+            conn = getConnection(address);
         } catch (Throwable e) {
             throw new RuntimeException("获取Tracker服务器地址失败", e);
         }
+        logger.debug("获取到Tracker连接地址{}", address);
+        return executeCmd(address, conn, command);
+    }
 
-        // 从连接池中获取连接
+    @Override
+    public <T> T execute(InetSocketAddress address, StorageCommand<T> command) {
         Connection conn;
         try {
-            // 获取连接
+            // 从连接池中获取连接
+            conn = getConnection(address);
+        } catch (Throwable e) {
+            throw new RuntimeException("获取Storage服务器地址失败", e);
+        }
+        logger.debug("获取到Storage连接地址{}", address);
+        return executeCmd(address, conn, command);
+    }
+
+    /**
+     * 从连接池里获取连接<br/>
+     * <b>注意: 返回的连接使用完必须还回给连接池, 调用pool.returnObject</b>
+     *
+     * @param address 连接池 资源KEY
+     * @return 返回连接, 使用完必须返回给连接池
+     */
+    private Connection getConnection(InetSocketAddress address) {
+        Connection conn;
+        try {
+            // 从连接池中获取连接
             conn = pool.borrowObject(address);
             trackerLocator.setActive(address, true);
         } catch (FastDfsConnectException e) {
@@ -85,8 +96,18 @@ public class DefaultCommandExecutor implements CommandExecutor {
         } catch (Throwable e) {
             throw new RuntimeException("从连接池中获取连接异常", e);
         }
-        logger.debug("获取到Tracker连接地址{}", address);
+        return conn;
+    }
 
+    /**
+     * 在Server上执行命令, 执行完毕 把链接还回连接池
+     *
+     * @param address 连接池 资源KEY
+     * @param conn    连接池连接资源
+     * @param command Server命令对象
+     * @return 返回请求响应对象
+     */
+    private <T> T executeCmd(InetSocketAddress address, Connection conn, AbstractCommand<T> command) {
         // 发送请求
         try {
             logger.debug("发送请求, 服务器地址[{}], 请求类型[{}]", address, command.getClass().getSimpleName());
