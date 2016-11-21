@@ -11,7 +11,7 @@ import java.nio.charset.Charset;
  * 创建时间：2016/11/20 16:49 <br/>
  */
 public class GetStorageConnection {
-    private static final InetSocketAddress address = new InetSocketAddress("192.168.56.139", 23000);
+    private static final InetSocketAddress address = new InetSocketAddress("192.168.10.128", 23000);
     private static final int soTimeout = 1500;
     private static final int connectTimeout = 600;
     private static final Charset charset = Charset.forName("UTF-8");

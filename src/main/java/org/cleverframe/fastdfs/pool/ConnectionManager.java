@@ -113,9 +113,13 @@ public class ConnectionManager {
                     "# ------Dump Pool Info------\r\n" +
                     "#\t 活动连接：" + pool.getNumActive() + "\r\n" +
                     "#\t 空闲连接：" + pool.getNumIdle() + "\r\n" +
+                    "#\t 正在使用的连接：" + pool.getNumWaiters() + "\r\n" +
                     "#\t 连接获取总数统计：" + pool.getBorrowedCount() + "\r\n" +
                     "#\t 连接返回总数统计：" + pool.getReturnedCount() + "\r\n" +
+                    "#\t 连接创建总数统计：" + pool.getCreatedCount() + "\r\n" +
                     "#\t 连接销毁总数统计：" + pool.getDestroyedCount() + "\r\n" +
+                    "#\t 连接销毁(因为连接不可用)总数统计：" + pool.getDestroyedByBorrowValidationCount() + "\r\n" +
+                    "#\t 连接销毁(因为连接被回收)总数统计：" + pool.getDestroyedByEvictorCount() + "\r\n" +
                     "#=======================================================================================================================#\r\n";
             logger.debug(tmp);
         }

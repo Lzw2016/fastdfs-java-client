@@ -9,6 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 作者：LiZW <br/>
@@ -36,5 +38,24 @@ public class DownloadFileCommandTest {
     public void test02() {
         File file = new File("Test.jpg");
         logger.info(file.getAbsolutePath());
+    }
+
+    @Test
+    public void test03() {
+        List<Connection> connectionList = new ArrayList<Connection>();
+        for (int i = 0; i < 1000; i++) {
+            try {
+                Connection connection = GetStorageConnection.getDefaultConnection();
+                connectionList.add(connection);
+                logger.info("新建连接数:" + i);
+            } catch (Throwable e) {
+                logger.info("连接异常");
+                break;
+            }
+        }
+
+        for (Connection connection : connectionList) {
+            connection.close();
+        }
     }
 }
