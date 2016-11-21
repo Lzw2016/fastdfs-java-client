@@ -20,7 +20,7 @@ public class DeleteStorageCommandTest {
     public void test01() {
         Connection connection = GetTrackerConnection.getDefaultConnection();
         try {
-            DeleteStorageCommand command = new DeleteStorageCommand("group1", "192.168.56.139");
+            DeleteStorageCommand command = new DeleteStorageCommand("group1", "192.168.10.128");
             command.execute(connection);
         } finally {
             connection.close();
