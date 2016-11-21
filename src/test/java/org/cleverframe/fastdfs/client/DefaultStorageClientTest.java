@@ -121,8 +121,8 @@ public class DefaultStorageClientTest {
 
     @Test
     public void downloadFileTest2() {
-        long fileOffset = 0;
-        long fileSize = 15;
+        long fileOffset = 50;
+        long fileSize = 0;
         DownloadFileWriter downloadFileWriter = new DownloadFileWriter("F:\\QAZXSW.txt");
         String filePath = storageClient.downloadFile("group1", "M00/00/00/wKgKgFgzb3iAErG9AAAAbjxjgS8801.txt", fileOffset, fileSize, downloadFileWriter);
         logger.info("#####===== " + filePath);

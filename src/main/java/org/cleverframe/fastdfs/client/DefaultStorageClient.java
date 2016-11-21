@@ -115,9 +115,62 @@ public class DefaultStorageClient implements StorageClient {
     @Override
     public <T> T downloadFile(String groupName, String path, long fileOffset, long fileSize, DownloadCallback<T> callback) {
         StorageNodeInfo storageNodeInfo = trackerClient.getFetchStorage(groupName, path);
-        DownloadFileCommand<T> command = new DownloadFileCommand<T>(groupName, path, 0, 0, callback);
+        DownloadFileCommand<T> command = new DownloadFileCommand<T>(groupName, path, fileOffset, fileSize, callback);
         return commandExecutor.execute(storageNodeInfo.getInetSocketAddress(), command);
     }
+
+    // ----------------------------------------------------------------------------------------------------------------------------------------------------
+
+    @Override
+    public StorePath uploadFile(InputStream inputStream, long fileSize, String fileExtName, Set<MateData> metaDataSet) {
+        StorageNode storageNode = trackerClient.getStorageNode();
+        UploadFileCommand command = new UploadFileCommand(storageNode.getStoreIndex(), inputStream, fileExtName, fileSize, false);
+        StorePath storePath = commandExecutor.execute(storageNode.getInetSocketAddress(), command);
+        if (metaDataSet == null || metaDataSet.size() <= 0) {
+            return storePath;
+        }
+        SetMetadataCommand cmd = new SetMetadataCommand(storePath.getGroup(), storePath.getPath(), metaDataSet, StorageMetadataSetType.STORAGE_SET_METADATA_FLAG_OVERWRITE);
+        commandExecutor.execute(storageNode.getInetSocketAddress(), command);
+        return storePath;
+    }
+
+    @Override
+    public StorePath uploadAppenderFile(String groupName, InputStream inputStream, long fileSize, String fileExtName) {
+        StorageNode storageNode = trackerClient.getStorageNode(groupName);
+        UploadFileCommand command = new UploadFileCommand(storageNode.getStoreIndex(), inputStream, fileExtName, fileSize, true);
+        return commandExecutor.execute(storageNode.getInetSocketAddress(), command);
+    }
+
+    @Override
+    public void appendFile(String groupName, String path, InputStream inputStream, long fileSize) {
+        StorageNodeInfo storageNodeInfo = trackerClient.getFetchStorageAndUpdate(groupName, path);
+        AppendFileCommand command = new AppendFileCommand(inputStream, fileSize, path);
+        commandExecutor.execute(storageNodeInfo.getInetSocketAddress(), command);
+    }
+
+    @Override
+    public void modifyFile(String groupName, String path, InputStream inputStream, long fileSize, long fileOffset) {
+        StorageNodeInfo storageNodeInfo = trackerClient.getFetchStorageAndUpdate(groupName, path);
+        ModifyCommand command = new ModifyCommand(path, inputStream, fileSize, fileOffset);
+        commandExecutor.execute(storageNodeInfo.getInetSocketAddress(), command);
+    }
+
+    @Override
+    public void truncateFile(String groupName, String path, long truncatedFileSize) {
+        StorageNodeInfo storageNodeInfo = trackerClient.getFetchStorageAndUpdate(groupName, path);
+        TruncateCommand command = new TruncateCommand(path, truncatedFileSize);
+        commandExecutor.execute(storageNodeInfo.getInetSocketAddress(), command);
+    }
+
+    @Override
+    public void truncateFile(String groupName, String path) {
+        long truncatedFileSize = 0;
+        truncateFile(groupName, path, truncatedFileSize);
+    }
+
+    /*--------------------------------------------------------------
+     *          getter、setter
+     * -------------------------------------------------------------*/
 
     public CommandExecutor getCommandExecutor() {
         return commandExecutor;

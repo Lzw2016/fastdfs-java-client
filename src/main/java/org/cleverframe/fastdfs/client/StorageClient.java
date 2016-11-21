@@ -99,9 +99,71 @@ public interface StorageClient {
      * @param groupName  组名称
      * @param path       主文件路径
      * @param fileOffset 开始位置
-     * @param fileSize   文件大小
+     * @param fileSize   文件大小(经过测试好像这个参数值只能是“0”)
      * @param callback   下载回调接口
      * @return 下载回调接口返回结果
      */
     <T> T downloadFile(String groupName, String path, long fileOffset, long fileSize, DownloadCallback<T> callback);
+
+    // ----------------------------------------------------------------------------------------------------------------------------------------------------
+
+    /**
+     * 上传文件， 并设置文件元数据
+     *
+     * @param inputStream 文件输入流
+     * @param fileSize    文件大小
+     * @param fileExtName 文件扩展名
+     * @param metaDataSet 元信息集合
+     * @return 文件存储路径
+     */
+    StorePath uploadFile(InputStream inputStream, long fileSize, String fileExtName, Set<MateData> metaDataSet);
+
+    /**
+     * 文件上传(支持断点续传)
+     *
+     * @param groupName   组名称
+     * @param inputStream 文件输入流(文件部分)
+     * @param fileSize    文件大小
+     * @param fileExtName 文件扩展名
+     * @return 文件存储路径
+     */
+    StorePath uploadAppenderFile(String groupName, InputStream inputStream, long fileSize, String fileExtName);
+
+    /**
+     * 断点续传文件
+     *
+     * @param groupName   组名称
+     * @param path        文件路径
+     * @param inputStream 文件输入流(文件部分)
+     * @param fileSize    文件大小
+     */
+    void appendFile(String groupName, String path, InputStream inputStream, long fileSize);
+
+    /**
+     * 修改续传文件的内容
+     *
+     * @param groupName   组名称
+     * @param path        文件路径
+     * @param inputStream 文件输入流
+     * @param fileSize    文件大小
+     * @param fileOffset  开始位置
+     */
+    void modifyFile(String groupName, String path, InputStream inputStream, long fileSize, long fileOffset);
+
+    /**
+     * 清除续传类型文件的内容
+     *
+     * @param groupName         组名称
+     * @param path              文件路径
+     * @param truncatedFileSize 截断文件大小
+     */
+    void truncateFile(String groupName, String path, long truncatedFileSize);
+
+    /**
+     * 清除续传类型文件的内容
+     *
+     * @param groupName 组名称
+     * @param path      文件路径
+     */
+    void truncateFile(String groupName, String path);
 }
