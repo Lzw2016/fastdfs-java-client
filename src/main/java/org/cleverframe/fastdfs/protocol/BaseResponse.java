@@ -1,6 +1,6 @@
 package org.cleverframe.fastdfs.protocol;
 
-import org.cleverframe.fastdfs.utils.FastDFSParamMapperUtils;
+import org.cleverframe.fastdfs.utils.FastDfsParamMapperUtils;
 import org.cleverframe.fastdfs.utils.ReflectionsUtils;
 
 import java.io.IOException;
@@ -57,7 +57,7 @@ public abstract class BaseResponse<T> {
             if (contentSize != getContentLength()) {
                 throw new IOException("读取到的数据长度与协议长度不符");
             }
-            return FastDFSParamMapperUtils.map(bytes, genericType, charset);
+            return FastDfsParamMapperUtils.map(bytes, genericType, charset);
         }
         return null;
     }

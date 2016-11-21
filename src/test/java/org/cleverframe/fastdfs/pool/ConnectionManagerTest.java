@@ -1,6 +1,7 @@
 package org.cleverframe.fastdfs.pool;
 
 import org.apache.commons.pool2.impl.GenericKeyedObjectPoolConfig;
+import org.cleverframe.fastdfs.conn.DefaultCommandExecutor;
 import org.cleverframe.fastdfs.model.StorageNode;
 import org.cleverframe.fastdfs.protocol.tracker.GetStorageNodeCommand;
 import org.junit.Test;
@@ -27,12 +28,12 @@ public class ConnectionManagerTest {
 
         GenericKeyedObjectPoolConfig conf = new GenericKeyedObjectPoolConfig();
         conf.setMaxTotal(20);
-        FastDfsConnectionPool connectionPool = new FastDfsConnectionPool(pooledConnectionFactory, conf);
+        ConnectionPool connectionPool = new ConnectionPool(pooledConnectionFactory, conf);
 
         Set<String> trackerSet = new HashSet<String>();
         trackerSet.add("192.168.10.128:22122");
 
-        ConnectionManager connectionManager = new ConnectionManager(trackerSet, connectionPool);
+        DefaultCommandExecutor connectionManager = new DefaultCommandExecutor(trackerSet, connectionPool);
 
         connectionManager.dumpPoolInfo();
 
@@ -59,19 +60,19 @@ public class ConnectionManagerTest {
         conf.setMaxTotal(200);
         conf.setMaxTotalPerKey(200);
         conf.setMaxIdlePerKey(100);
-        FastDfsConnectionPool connectionPool = new FastDfsConnectionPool(pooledConnectionFactory, conf);
+        ConnectionPool connectionPool = new ConnectionPool(pooledConnectionFactory, conf);
 
         Set<String> trackerSet = new HashSet<String>();
         trackerSet.add("192.168.10.128:22122");
 
-        ConnectionManager connectionManager = new ConnectionManager(trackerSet, connectionPool);
+        DefaultCommandExecutor connectionManager = new DefaultCommandExecutor(trackerSet, connectionPool);
 
         for (int i = 0; i <= 50; i++) {
             Thread thread = new PoolTest(connectionManager);
             thread.start();
         }
 
-        for (int i = 0; i <= 10; i++) {
+        for (int i = 0; i <= 2; i++) {
             connectionManager.dumpPoolInfo();
             Thread.sleep(1000 * 2);
         }
@@ -83,9 +84,9 @@ public class ConnectionManagerTest {
      * 多线程测试
      */
     private class PoolTest extends Thread {
-        private ConnectionManager connectionManager;
+        private DefaultCommandExecutor connectionManager;
 
-        PoolTest(ConnectionManager connectionManager) {
+        PoolTest(DefaultCommandExecutor connectionManager) {
             this.connectionManager = connectionManager;
         }
 

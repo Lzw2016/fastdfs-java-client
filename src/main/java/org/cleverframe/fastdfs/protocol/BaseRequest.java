@@ -1,7 +1,7 @@
 package org.cleverframe.fastdfs.protocol;
 
 import org.cleverframe.fastdfs.mapper.ObjectMateData;
-import org.cleverframe.fastdfs.utils.FastDFSParamMapperUtils;
+import org.cleverframe.fastdfs.utils.FastDfsParamMapperUtils;
 
 import java.io.InputStream;
 import java.nio.charset.Charset;
@@ -43,14 +43,14 @@ public abstract class BaseRequest {
      * 打包参数
      */
     protected byte[] encodeParam(Charset charset) {
-        return FastDFSParamMapperUtils.toByte(this, charset);
+        return FastDfsParamMapperUtils.toByte(this, charset);
     }
 
     /**
      * 获取参数域长度
      */
     private long getBodyLength(Charset charset) {
-        ObjectMateData objectMateData = FastDFSParamMapperUtils.getObjectMap(this.getClass());
+        ObjectMateData objectMateData = FastDfsParamMapperUtils.getObjectMap(this.getClass());
         return objectMateData.getFieldsSendTotalByteSize(this, charset) + getFileSize();
     }
 

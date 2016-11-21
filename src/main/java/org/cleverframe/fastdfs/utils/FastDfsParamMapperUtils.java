@@ -17,9 +17,9 @@ import java.util.Map;
  * 作者：LiZW <br/>
  * 创建时间：2016/11/20 1:32 <br/>
  */
-public class FastDFSParamMapperUtils {
+public class FastDfsParamMapperUtils {
 
-    private FastDFSParamMapperUtils() {
+    private FastDfsParamMapperUtils() {
     }
 
     /**
@@ -30,7 +30,7 @@ public class FastDFSParamMapperUtils {
     /**
      * 日志
      */
-    private static Logger logger = LoggerFactory.getLogger(FastDFSParamMapperUtils.class);
+    private static Logger logger = LoggerFactory.getLogger(FastDfsParamMapperUtils.class);
 
     /**
      * 将byte解码为对象

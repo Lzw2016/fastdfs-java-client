@@ -83,7 +83,7 @@ public class TrackerLocator {
     }
 
     /**
-     * 获取Tracker服务器地址
+     * 获取Tracker服务器地址(使用轮询)
      */
     public InetSocketAddress getTrackerAddress() {
         TrackerAddressState holder;

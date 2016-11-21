@@ -3,7 +3,7 @@ package org.cleverframe.fastdfs.protocol.tracker.response;
 import org.cleverframe.fastdfs.model.StorageState;
 import org.cleverframe.fastdfs.protocol.BaseResponse;
 import org.cleverframe.fastdfs.mapper.ObjectMateData;
-import org.cleverframe.fastdfs.utils.FastDFSParamMapperUtils;
+import org.cleverframe.fastdfs.utils.FastDfsParamMapperUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -37,7 +37,7 @@ public class GetListStorageResponse extends BaseResponse<List<StorageState>> {
      */
     private List<StorageState> decodeGroup(byte[] bs, Charset charset) throws IOException {
         // 获取对象转换定义
-        ObjectMateData objectMateData = FastDFSParamMapperUtils.getObjectMap(StorageState.class);
+        ObjectMateData objectMateData = FastDfsParamMapperUtils.getObjectMap(StorageState.class);
         int fixFieldsTotalSize = objectMateData.getFieldsFixTotalSize();
         if (bs.length % fixFieldsTotalSize != 0) {
             throw new IOException("FixFieldsTotalSize=" + fixFieldsTotalSize + ", 但是数据长度=" + bs.length + ", 数据无效");
@@ -49,7 +49,7 @@ public class GetListStorageResponse extends BaseResponse<List<StorageState>> {
         for (int i = 0; i < count; i++) {
             byte[] one = new byte[fixFieldsTotalSize];
             System.arraycopy(bs, offset, one, 0, fixFieldsTotalSize);
-            results.add(FastDFSParamMapperUtils.map(one, StorageState.class, charset));
+            results.add(FastDfsParamMapperUtils.map(one, StorageState.class, charset));
             offset += fixFieldsTotalSize;
         }
         return results;

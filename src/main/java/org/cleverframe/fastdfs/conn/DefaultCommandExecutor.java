@@ -1,8 +1,11 @@
-package org.cleverframe.fastdfs.pool;
+package org.cleverframe.fastdfs.conn;
 
-import org.cleverframe.fastdfs.conn.Connection;
 import org.cleverframe.fastdfs.exception.FastDfsConnectException;
 import org.cleverframe.fastdfs.exception.FastDfsException;
+import org.cleverframe.fastdfs.pool.ConnectionPool;
+import org.cleverframe.fastdfs.pool.TrackerLocator;
+import org.cleverframe.fastdfs.protocol.AbstractCommand;
+import org.cleverframe.fastdfs.protocol.storage.StorageCommand;
 import org.cleverframe.fastdfs.protocol.tracker.TrackerCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,11 +19,11 @@ import java.util.Set;
  * 作者：LiZW <br/>
  * 创建时间：2016/11/20 19:26 <br/>
  */
-public class ConnectionManager {
+public class DefaultCommandExecutor implements CommandExecutor {
     /**
      * 日志
      */
-    private static final Logger logger = LoggerFactory.getLogger(ConnectionManager.class);
+    private static final Logger logger = LoggerFactory.getLogger(DefaultCommandExecutor.class);
 
     /**
      * Tracker定位
@@ -30,7 +33,7 @@ public class ConnectionManager {
     /**
      * 连接池
      */
-    private FastDfsConnectionPool pool;
+    private ConnectionPool pool;
 
     /**
      * 构造函数
@@ -38,52 +41,51 @@ public class ConnectionManager {
      * @param trackerSet Tracker Server服务器IP地址集合
      * @param pool       连接池
      */
-    public ConnectionManager(Set<String> trackerSet, FastDfsConnectionPool pool) {
+    public DefaultCommandExecutor(Set<String> trackerSet, ConnectionPool pool) {
         logger.debug("初始化Tracker Server连接 {}", trackerSet);
         this.pool = pool;
         trackerLocator = new TrackerLocator(trackerSet);
     }
 
+    @Override
+    public <T> T execute(TrackerCommand<T> command) {
+        return executeCmd(command);
+    }
+
+    @Override
+    public <T> T execute(StorageCommand<T> command) {
+        return executeCmd(command);
+    }
+
     /**
-     * 获取连接
+     * 在Server上执行命令
      *
-     * @param address 请求地址
-     * @return 连接
+     * @param command Server命令对象
+     * @return 返回请求响应对象
      */
-    private Connection getConnection(InetSocketAddress address) {
+    private <T> T executeCmd(AbstractCommand<T> command) {
+        // 获取Tracker服务器地址(使用轮询)
+        InetSocketAddress address;
+        try {
+            address = trackerLocator.getTrackerAddress();
+        } catch (Throwable e) {
+            throw new RuntimeException("获取Tracker服务器地址失败", e);
+        }
+
+        // 从连接池中获取连接
         Connection conn;
         try {
             // 获取连接
             conn = pool.borrowObject(address);
-        } catch (FastDfsException e) {
-            throw e;
-        } catch (Exception e) {
-            throw new RuntimeException("从连接池中获取连接异常", e);
-        }
-        return conn;
-    }
-
-    /**
-     * 在Tracker Server上执行命令
-     *
-     * @param command 在Tracker Server命令对象
-     * @return 返回请求响应对象
-     */
-    public <T> T execute(TrackerCommand<T> command) {
-        Connection conn;
-        InetSocketAddress address = null;
-        // 获取连接
-        try {
-            address = trackerLocator.getTrackerAddress();
-            logger.debug("获取到Tracker连接地址{}", address);
-            conn = getConnection(address);
             trackerLocator.setActive(address, true);
         } catch (FastDfsConnectException e) {
             trackerLocator.setActive(address, false);
             throw e;
-        } catch (Exception e) {
-            throw new RuntimeException("从连接池中获取连接失败", e);
+        } catch (Throwable e) {
+            throw new RuntimeException("从连接池中获取连接异常", e);
         }
+        logger.debug("获取到Tracker连接地址{}", address);
+
         // 发送请求
         try {
             logger.debug("发送请求, 服务器地址[{}], 请求类型[{}]", address, command.getClass().getSimpleName());
@@ -125,11 +127,11 @@ public class ConnectionManager {
         }
     }
 
-    public FastDfsConnectionPool getPool() {
+    public ConnectionPool getPool() {
         return pool;
     }
 
-    public void setPool(FastDfsConnectionPool pool) {
+    public void setPool(ConnectionPool pool) {
         this.pool = pool;
     }
 }

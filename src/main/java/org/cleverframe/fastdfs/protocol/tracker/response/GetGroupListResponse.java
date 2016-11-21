@@ -3,7 +3,7 @@ package org.cleverframe.fastdfs.protocol.tracker.response;
 import org.cleverframe.fastdfs.model.GroupState;
 import org.cleverframe.fastdfs.protocol.BaseResponse;
 import org.cleverframe.fastdfs.mapper.ObjectMateData;
-import org.cleverframe.fastdfs.utils.FastDFSParamMapperUtils;
+import org.cleverframe.fastdfs.utils.FastDfsParamMapperUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -43,7 +43,7 @@ public class GetGroupListResponse extends BaseResponse<List<GroupState>> {
      */
     private List<GroupState> decodeGroup(byte[] bs, Charset charset) throws IOException {
         // 获取对象转换定义
-        ObjectMateData objectMateData = FastDFSParamMapperUtils.getObjectMap(GroupState.class);
+        ObjectMateData objectMateData = FastDfsParamMapperUtils.getObjectMap(GroupState.class);
         int fixFieldsTotalSize = objectMateData.getFieldsFixTotalSize();
         if (bs.length % fixFieldsTotalSize != 0) {
             throw new IOException("FixFieldsTotalSize=" + fixFieldsTotalSize + ", 但是数据长度=" + bs.length + ", 数据无效");
@@ -55,7 +55,7 @@ public class GetGroupListResponse extends BaseResponse<List<GroupState>> {
         for (int i = 0; i < count; i++) {
             byte[] one = new byte[fixFieldsTotalSize];
             System.arraycopy(bs, offset, one, 0, fixFieldsTotalSize);
-            results.add(FastDFSParamMapperUtils.map(one, GroupState.class, charset));
+            results.add(FastDfsParamMapperUtils.map(one, GroupState.class, charset));
             offset += fixFieldsTotalSize;
         }
         return results;
