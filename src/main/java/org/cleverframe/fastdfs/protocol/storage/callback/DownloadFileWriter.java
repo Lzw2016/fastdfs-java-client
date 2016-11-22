@@ -39,8 +39,6 @@ public class DownloadFileWriter implements DownloadCallback<String> {
             // 通过ioutil 对接输入输出流，实现文件下载
             IOUtils.copy(in, out);
             out.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
         } finally {
             // 关闭流
             IOUtils.closeQuietly(in);

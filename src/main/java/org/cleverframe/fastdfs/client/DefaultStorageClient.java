@@ -1,6 +1,8 @@
 package org.cleverframe.fastdfs.client;
 
 import org.cleverframe.fastdfs.conn.CommandExecutor;
+import org.cleverframe.fastdfs.constant.ErrorCodeConstants;
+import org.cleverframe.fastdfs.exception.FastDfsServerException;
 import org.cleverframe.fastdfs.model.*;
 import org.cleverframe.fastdfs.protocol.storage.*;
 import org.cleverframe.fastdfs.protocol.storage.callback.DownloadCallback;
@@ -87,9 +89,19 @@ public class DefaultStorageClient implements StorageClient {
 
     @Override
     public FileInfo queryFileInfo(String groupName, String path) {
+        FileInfo fileInfo = null;
         StorageNodeInfo storageNodeInfo = trackerClient.getFetchStorage(groupName, path);
         QueryFileInfoCommand command = new QueryFileInfoCommand(groupName, path);
-        return commandExecutor.execute(storageNodeInfo.getInetSocketAddress(), command);
+        try {
+            fileInfo = commandExecutor.execute(storageNodeInfo.getInetSocketAddress(), command);
+        } catch (FastDfsServerException e) {
+            if (e.getErrorCode() == ErrorCodeConstants.ERR_NO_ENOENT) {
+                logger.warn("获取文件的信息异常,ErrorCode=[{}], ErrorMessage=[{}]", e.getErrorCode(), e.getMessage());
+            } else {
+                throw e;
+            }
+        }
+        return fileInfo;
     }
 
     @Override

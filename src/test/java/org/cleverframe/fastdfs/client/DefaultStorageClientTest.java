@@ -102,7 +102,7 @@ public class DefaultStorageClientTest {
 
     @Test
     public void queryFileInfoTest() {
-        FileInfo fileInfo = storageClient.queryFileInfo("group1", "M00/00/00/wKgKgFgzZxuATInzAACM0xlEIJM55.xlsx");
+        FileInfo fileInfo = storageClient.queryFileInfo("group1", "M00/00/00/wKg4i1gxzYWAJiwjAATA4WNjQT42751.jpg");
         logger.info("#####===== " + fileInfo);
     }
 
@@ -114,8 +114,8 @@ public class DefaultStorageClientTest {
 
     @Test
     public void downloadFileTest() {
-        DownloadFileWriter downloadFileWriter = new DownloadFileWriter("F:\\123.jpg");
-        String filePath = storageClient.downloadFile("group1", "M00/00/00/wKg4i1gw1JWALQsHAATA4WNjQT4937.jpg", downloadFileWriter);
+        DownloadFileWriter downloadFileWriter = new DownloadFileWriter("F:\\123.xlsx");
+        String filePath = storageClient.downloadFile("group1", "M00/00/00/wKgKgFg02TaAY3mTADCUhuWQdRc53.xlsx", downloadFileWriter);
         logger.info("#####===== " + filePath);
     }
 

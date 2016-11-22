@@ -67,11 +67,11 @@ public interface StorageClient {
     boolean mergeMetadata(String groupName, String path, Set<MateData> metaDataSet);
 
     /**
-     * 查看文件的信息
+     * 获取文件的信息
      *
      * @param groupName 组名称
      * @param path      主文件路径
-     * @return 文件信息
+     * @return 文件信息(不存在返回null)
      */
     FileInfo queryFileInfo(String groupName, String path);
 
