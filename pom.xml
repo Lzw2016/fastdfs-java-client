@@ -109,6 +109,20 @@
     </dependencies>
 
     <build>
+        <!--项目结构-->
+        <sourceDirectory>src/main/java</sourceDirectory>
+        <testSourceDirectory>src/test/java</testSourceDirectory>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+            </testResource>
+        </testResources>
+        <!--Maven插件-->
         <plugins>
             <!--发布到Maven私服-->
             <plugin>
