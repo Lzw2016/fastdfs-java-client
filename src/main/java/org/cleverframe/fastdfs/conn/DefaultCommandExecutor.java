@@ -7,10 +7,12 @@ import org.cleverframe.fastdfs.pool.TrackerLocator;
 import org.cleverframe.fastdfs.protocol.AbstractCommand;
 import org.cleverframe.fastdfs.protocol.storage.StorageCommand;
 import org.cleverframe.fastdfs.protocol.tracker.TrackerCommand;
+import org.cleverframe.fastdfs.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.InetSocketAddress;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -35,6 +37,29 @@ public class DefaultCommandExecutor implements CommandExecutor {
      * 连接池
      */
     private ConnectionPool pool;
+
+    /**
+     * 构造函数
+     *
+     * @param trackerStr Tracker Server服务器IP地址,格式 host:port(多个用用“,”隔开)
+     * @param pool       连接池
+     */
+    public DefaultCommandExecutor(String trackerStr, ConnectionPool pool) {
+        logger.debug("初始化Tracker Server连接 {}", trackerStr);
+        Set<String> trackerSet = new HashSet<String>();
+        String[] trackerArray = StringUtils.split(trackerStr, ",");
+        for (String tracker : trackerArray) {
+            if (StringUtils.isBlank(tracker)) {
+                continue;
+            }
+            trackerSet.add(tracker);
+        }
+        if (trackerSet.size() <= 0) {
+            throw new RuntimeException("Tracker Server服务器IP地址解析失败[" + trackerStr + "]");
+        }
+        this.pool = pool;
+        trackerLocator = new TrackerLocator(trackerSet);
+    }
 
     /**
      * 构造函数
