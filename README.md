@@ -1,10 +1,25 @@
 # fastdfs-java-client(FastDFS文件服务器Java客户端)
 ---
 ## 介绍 ##
+---
+**FastDFS简介**
+> FastDFS是一款类似Google FS的开源分布式文件系统，是纯C语言开发的。
+FastDFS是一个开源的轻量级分布式文件系统，它对文件进行管理，功能包括：文件存储、文件同步、文件访问（文件上传、文件下载）等，解决了大容量存储和负载均衡的问题。特别适合以文件为载体的在线服务，如相册网站、视频网站等等。
+官方论坛  http://bbs.chinaunix.net/forum-240-1.html
 
+由于官方提供的Java客户端代码没有实现连接池(高并发会有性能问题)，而且官方提供的代码风格类似c语言，结构也不太好，难以使用到线上项目中。所以参考官方的代码自己实现了，同时还参考了github上[tobato][1]的[FastDFS_Client][2]项目。
+
+[FastDFS_Client][2]项目的缺点就是依赖的框架太多了！(依赖SpringBoot、commons-io、commons-pool2、hibernate-validator、thumbnailator等)很不适合单独使用或灵活使用，所以我参考了他的源码重构了项目，重构之后只依赖commons-pool2。
+
+**主要特性**
+
+ 1. 必须使用JDK1.7及以上版本
+ 2. 支持对服务端的连接池管理(commons-pool2实现)
+ 3. 代码结构清晰易读，且适合二次开发自定义
+ 4. 容易使用，可与Spring整合
 
 ## 主要接口和设计思想 ##
-
+---
 
 
 ## 使用示例 ##
@@ -95,3 +110,7 @@ fileupload.FastDFS.maxIdlePerKey=50
 
 
 https://github.com/tobato/FastDFS_Client
+
+
+  [1]: https://github.com/tobato
+  [2]: https://github.com/tobato/FastDFS_Client
