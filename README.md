@@ -1,5 +1,4 @@
 # fastdfs-java-client(FastDFS文件服务器Java客户端)
----
 ## 介绍 ##
 **FastDFS简介**
 > FastDFS是一款类似Google FS的开源分布式文件系统，是纯C语言开发的。
