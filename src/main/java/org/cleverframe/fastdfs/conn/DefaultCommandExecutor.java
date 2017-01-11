@@ -55,7 +55,7 @@ public class DefaultCommandExecutor implements CommandExecutor {
             trackerSet.add(tracker.trim());
         }
         if (trackerSet.size() <= 0) {
-            throw new RuntimeException("Tracker Server服务器IP地址解析失败[" + trackerStr + "]");
+            throw new RuntimeException("Tracker Server服务器IP地址解析失败:[" + trackerStr + "]");
         }
         this.pool = pool;
         trackerLocator = new TrackerLocator(trackerSet);
