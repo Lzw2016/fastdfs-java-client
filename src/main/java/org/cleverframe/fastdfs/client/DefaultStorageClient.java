@@ -37,7 +37,7 @@ public class DefaultStorageClient implements StorageClient {
 
     @Override
     public StorePath uploadFile(String groupName, InputStream inputStream, long fileSize, String fileExtName) {
-        StorageNode storageNode = trackerClient.getStorageNode();
+        StorageNode storageNode = trackerClient.getStorageNode(groupName);
         UploadFileCommand command = new UploadFileCommand(storageNode.getStoreIndex(), inputStream, fileExtName, fileSize, false);
         return commandExecutor.execute(storageNode.getInetSocketAddress(), command);
     }
