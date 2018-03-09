@@ -12,32 +12,21 @@
 
     <repositories>
         <repository>
-            <id>osc</id>
-            <url>http://maven.oschina.net/content/groups/public/</url>
-        </repository>
-        <repository>
-            <id>osc_thirdparty</id>
-            <url>http://maven.oschina.net/content/repositories/thirdparty/</url>
-        </repository>
-
-        <repository>
-            <id>opensourceagility-release</id>
-            <url>http://repo.opensourceagility.com/release</url>
-        </repository>
-
-        <repository>
-            <id>mvnrepository</id>
-            <url>http://central.maven.org/maven2/</url>
-        </repository>
-        <repository>
-            <id>sonatype</id>
-            <url>http://repository.sonatype.org/content/groups/public/</url>
-        </repository>
-        <repository>
             <id>alimaven</id>
             <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
         </repository>
     </repositories>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>my-maven-snapshots</id>
+            <url>http://39.108.68.132:8081/repository/maven-snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>my-maven-releases</id>
+            <url>http://39.108.68.132:8081/repository/maven-releases/</url>
+        </repository>
+    </distributionManagement>
 
     <properties>
         <downloadSources>true</downloadSources>
