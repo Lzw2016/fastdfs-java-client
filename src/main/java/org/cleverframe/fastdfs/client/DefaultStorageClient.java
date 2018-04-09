@@ -142,7 +142,7 @@ public class DefaultStorageClient implements StorageClient {
             return storePath;
         }
         SetMetadataCommand cmd = new SetMetadataCommand(storePath.getGroup(), storePath.getPath(), metaDataSet, StorageMetadataSetType.STORAGE_SET_METADATA_FLAG_OVERWRITE);
-        commandExecutor.execute(storageNode.getInetSocketAddress(), command);
+        commandExecutor.execute(storageNode.getInetSocketAddress(), cmd);
         return storePath;
     }
 
